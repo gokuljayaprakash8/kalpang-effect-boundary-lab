@@ -1,13 +1,13 @@
 {
   "case_id": "authorized-unchanged-execution",
   "requestedAction": "write_file",
-  "authorizedResource": "/tmp/kalpang-effect-boundary-lhZjuu/allowed",
-  "requestedEffectResource": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+  "authorizedResource": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed",
+  "requestedEffectResource": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
   "authorizationDecision": "allow",
   "execution_performed": true,
   "observedEffects": [
     {
-      "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+      "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
       "inAuthorizedBoundary": true
     }
   ],
@@ -18,11 +18,11 @@
       "content": [
         {
           "type": "text",
-          "text": "Successfully wrote to /tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt"
+          "text": "Successfully wrote to /tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt"
         }
       ],
       "structuredContent": {
-        "content": "Successfully wrote to /tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt"
+        "content": "Successfully wrote to /tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt"
       }
     },
     "jsonrpc": "2.0",
@@ -32,27 +32,27 @@
     "beforeSnapshot": {
       "allowed": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed"
       },
       "outside": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside"
       }
     },
     "afterSnapshot": {
       "allowed": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed"
       },
       "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
         "size": 18,
         "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
       "outside": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside"
       }
     },
     "changedPaths": [
@@ -115,7 +115,7 @@
           "params": {
             "name": "write_file",
             "arguments": {
-              "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+              "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
               "content": "authorized payload"
             }
           }
@@ -123,7 +123,7 @@
       },
       {
         "direction": "server-stderr",
-        "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-lhZjuu/allowed' ]\n"
+        "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-WTVcbJ/allowed' ]\n"
       },
       {
         "direction": "server->client",
@@ -132,11 +132,11 @@
             "content": [
               {
                 "type": "text",
-                "text": "Successfully wrote to /tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt"
+                "text": "Successfully wrote to /tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt"
               }
             ],
             "structuredContent": {
-              "content": "Successfully wrote to /tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt"
+              "content": "Successfully wrote to /tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt"
             }
           },
           "jsonrpc": "2.0",

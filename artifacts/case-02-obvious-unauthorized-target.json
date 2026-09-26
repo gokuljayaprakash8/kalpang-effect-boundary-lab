@@ -1,8 +1,8 @@
 {
   "case_id": "case-02-obvious-unauthorized-target",
   "requested_action": "write_file",
-  "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/inside.txt",
-  "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/outside/blocked.txt",
+  "authorized_effect": "/tmp/kalpang-effect-boundary-vL4xHe/allowed/inside.txt",
+  "execution_request": "/tmp/kalpang-effect-boundary-vL4xHe/outside/blocked.txt",
   "observed_effect": [],
   "authorization_decision": "DENY",
   "execution_performed": false,
@@ -14,27 +14,27 @@
     "beforeSnapshot": {
       "allowed": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/allowed"
       },
       "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/allowed/agent-write.txt",
         "size": 18,
         "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
       "allowed/authorized.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/allowed/authorized.txt",
         "size": 7,
         "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
       },
       "outside": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/outside"
       },
       "outside/escaped.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/outside/escaped.txt",
         "size": 15,
         "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
       }
@@ -42,27 +42,27 @@
     "afterSnapshot": {
       "allowed": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/allowed"
       },
       "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/allowed/agent-write.txt",
         "size": 18,
         "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
       "allowed/authorized.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/allowed/authorized.txt",
         "size": 7,
         "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
       },
       "outside": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/outside"
       },
       "outside/escaped.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+        "path": "/tmp/kalpang-effect-boundary-vL4xHe/outside/escaped.txt",
         "size": 15,
         "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
       }

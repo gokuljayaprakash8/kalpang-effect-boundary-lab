@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "repository": "https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab",
-  "source_commit": "82b9c9bd0685ea585ccd08a3637d3697ab57a25e",
-  "source_worktree_clean_at_start": false,
+  "source_commit": "94a0c3b6226bf680f8400df99ea69ed3eb3defbd",
+  "source_worktree_clean_at_start": true,
   "source_files_sha256": {
     "package.json": "a1bf76a781c329aa46ed09b2209fc4917bff1b967bcce2948fde6d34fd8551ee",
     "package-lock.json": "38ddb8288c408c058503a15da5a908437f11993e60aa050de6e9de969d1391e4",
@@ -15,7 +15,7 @@
     "src/sandbox.js": "9ecade46b7f054c7dcae201c6a8564fabb139f032b461e9d98a6d164ca816d7b",
     "test/effect-boundary.test.js": "59f06977f918557b1e282e82600be5323b63a265e97fb8240f5d391099a6743f"
   },
-  "generated_at": "2026-09-26T09:14:08.687Z",
+  "generated_at": "2026-09-26T09:16:00.064Z",
   "runtime": {
     "node": "v24.21.0",
     "npm": "11.19.0"
@@ -51,22 +51,22 @@
   },
   "evidence_files_count": 16,
   "evidence_sha256": {
-    "authorized-experiment.json": "182b51ac82ede590859bc875c0804443f60568d7021f4c0e4f8660e3834e232d",
-    "case-01-authorized-unchanged-execution.json": "1c7653229136a207b24292307ad8c411dd593de628cddc7bc2b89b3e52427a82",
-    "case-02-obvious-unauthorized-target.json": "06095727178ad22e09e8d2c52a8bbc6636498479b411f6779bdf57b1f70674c0",
-    "case-03-execution-layer-path-substitution.json": "934c2559e8d8f0bb061d4d3b04662a41edac9fc624faf8a8683c362ef7e43e11",
-    "case-04-filename-substitution.json": "edbbbccdbd5904af5ce5c69072f3efb462ad05e6098ae9974879cfa15c3d175a",
-    "case-05-relative-path-transformation.json": "4d2b83767bbcb324ca72c4885be629ca38e30a75ff8c1dfa1518c451293a7d65",
-    "case-06-nested-path-boundary-escape.json": "02bb95c536268299faed63249a68f07f54e2ad44202ca48cba9788a84a865799",
-    "case-07-absolute-path-substitution.json": "0bad7defe5d187de626390cacc962a95ceb25869b1cccba5f4ddc015a44884a4",
-    "case-08-authorization-execution-parameter-mismatch.json": "a4c254d0c7d3705821f1a1f2e226b132854d57329d89886e1bc52c177cc9f3d7",
-    "case-09-denied-execution-with-zero-effect.json": "285a2fcf14d35efc8708430ec14282dc89e59f876a9296d6f05b24a637c86685",
-    "case-10-repeated-execution-with-independent-verification.json": "977205b6cb6c009053eb4c3d8dee73600989a29b2cdefa811bd1701c0f16d550",
-    "conformance-suite-summary.json": "38e6741463e15b9f94f4af37ce321930e6848d0a255e148411fca0f8e9413866",
-    "execution-divergence-experiment.json": "cec358bd8d717a2fa9b4db166c8ee9f1bb011e386316d64f9e610db12cc94439",
-    "experiment-summary.json": "27894864a3c1fc5ee9903796da6102cb4cf88d298e8283a273f1442375e2dd4e",
-    "sentinel-divergence-proof.json": "c57c4d6a78d0bf50397717e04db3beac910dd6142cbe802018879d430f9fe15a",
-    "unauthorized-experiment.json": "d469226594e4c99acc94197e32037546580fd5da07f1d6715fc2f527af50d522"
+    "authorized-experiment.json": "0de97e21612ffbb7f9729c1ed091f3d24690e84ead65a3eeb531af22178b9197",
+    "case-01-authorized-unchanged-execution.json": "ca5eb6f63bc625ac21a502df6c1b9291996c81c4257fad8a858a1f2f6195876f",
+    "case-02-obvious-unauthorized-target.json": "6d5755f4bf085a7a3ee53f3601d41539ee92169104f121ced7aa94c211953d7c",
+    "case-03-execution-layer-path-substitution.json": "f49ac2e6141c12e5ab31fc4fcb4595f07adb034ae4022644deaa623f5ad10b75",
+    "case-04-filename-substitution.json": "5bc9fa57806127a3b6118bcacfc02db148f819c684291ae37777c4dbec2c96a5",
+    "case-05-relative-path-transformation.json": "e09828015fea0d3fba6bdc979ab9febc9574d9b16b1fd9e909e838259252eb25",
+    "case-06-nested-path-boundary-escape.json": "a5450dff1ccd79b46b8c0220d0346c394f332c8ad266d41df132ec6f56ec9a72",
+    "case-07-absolute-path-substitution.json": "4cf8068763f89d7af4f5fb84fde742929b68fe8bee34ba98b103c7ee87776b67",
+    "case-08-authorization-execution-parameter-mismatch.json": "9789fb478929938485d8483243a7c3607c8d49f013b1468218a865943b539a77",
+    "case-09-denied-execution-with-zero-effect.json": "fa0646778773827542d01fcf5ceaba6fb10bbdebcc2e362d5927bfe4d2e522c0",
+    "case-10-repeated-execution-with-independent-verification.json": "d82642b865c30f845607a34bdeb515a54e23b9ed27273cfabcc33fc9eea96f0c",
+    "conformance-suite-summary.json": "3a1a78e7ca27e2f86e31f2408f1aecdf35563de7a840916695ba2822138a3f89",
+    "execution-divergence-experiment.json": "5d86193949dfe1c48fa51b301bb0bafdff2b36e1b1940ca27054396ea236d692",
+    "experiment-summary.json": "3081332e2f75485d04a9667394f48d9da10d98c45587d1b07cdd77c5f1c1ba6c",
+    "sentinel-divergence-proof.json": "2140755ff077ca55295f33bc5e5aafd27c7a13a6db49a29c03d5195140db8cc9",
+    "unauthorized-experiment.json": "bddcd42b2e2b68df0f7b6bc78dc3eb552c8e320429bfd860bea38ad7b0e8d3c2"
   },
   "known_limitations": [
     "Authorization values are harness fixture inputs; no live authorization service or agent is tested.",

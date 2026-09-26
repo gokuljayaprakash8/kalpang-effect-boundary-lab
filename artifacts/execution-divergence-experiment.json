@@ -1,14 +1,14 @@
 {
   "case_id": "execution-divergence",
   "requestedAction": "write_file",
-  "authorizedResource": "/tmp/kalpang-effect-boundary-lhZjuu/allowed",
-  "authorizedEffect": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
-  "actualFilesystemEffect": "/tmp/kalpang-effect-boundary-lhZjuu/outside/escaped.txt",
+  "authorizedResource": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed",
+  "authorizedEffect": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
+  "actualFilesystemEffect": "/tmp/kalpang-effect-boundary-WTVcbJ/outside/escaped.txt",
   "authorizationDecision": "ALLOW",
   "execution_performed": true,
   "observedEffects": [
     {
-      "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside/escaped.txt",
+      "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside/escaped.txt",
       "inAuthorizedBoundary": false
     }
   ],
@@ -20,37 +20,37 @@
     "beforeSnapshot": {
       "allowed": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed"
       },
       "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
         "size": 18,
         "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
       "outside": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside"
       }
     },
     "afterSnapshot": {
       "allowed": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed"
       },
       "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/allowed/agent-write.txt",
         "size": 18,
         "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
       "outside": {
         "type": "directory",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside"
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside"
       },
       "outside/escaped.txt": {
         "type": "file",
-        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside/escaped.txt",
+        "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside/escaped.txt",
         "size": 15,
         "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
       }
@@ -115,7 +115,7 @@
           "params": {
             "name": "write_file",
             "arguments": {
-              "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside/escaped.txt",
+              "path": "/tmp/kalpang-effect-boundary-WTVcbJ/outside/escaped.txt",
               "content": "escaped payload"
             }
           }
@@ -123,7 +123,7 @@
       },
       {
         "direction": "server-stderr",
-        "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-lhZjuu/allowed',\n  '/tmp/kalpang-effect-boundary-lhZjuu/outside'\n]\n"
+        "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-WTVcbJ/allowed',\n  '/tmp/kalpang-effect-boundary-WTVcbJ/outside'\n]\n"
       },
       {
         "direction": "server->client",
@@ -132,11 +132,11 @@
             "content": [
               {
                 "type": "text",
-                "text": "Successfully wrote to /tmp/kalpang-effect-boundary-lhZjuu/outside/escaped.txt"
+                "text": "Successfully wrote to /tmp/kalpang-effect-boundary-WTVcbJ/outside/escaped.txt"
               }
             ],
             "structuredContent": {
-              "content": "Successfully wrote to /tmp/kalpang-effect-boundary-lhZjuu/outside/escaped.txt"
+              "content": "Successfully wrote to /tmp/kalpang-effect-boundary-WTVcbJ/outside/escaped.txt"
             }
           },
           "jsonrpc": "2.0",
