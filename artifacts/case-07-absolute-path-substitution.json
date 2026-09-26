@@ -1,0 +1,207 @@
+{
+  "case_id": "case-07-absolute-path-substitution",
+  "requested_action": "write_file",
+  "authorized_effect": "/sandbox/allowed/abs.txt",
+  "execution_request": "/sandbox/outside/absolute-escaped.txt",
+  "observed_effect": "/sandbox/outside/absolute-escaped.txt",
+  "authorization_decision": "ALLOW",
+  "observed_effect_within_authorization": false,
+  "blocker_layer": "execution layer",
+  "final_status": "DIVERGENT / FAIL",
+  "machine_evidence": {
+    "beforeSnapshot": {
+      "allowed": {
+        "type": "directory",
+        "path": "/sandbox/allowed"
+      },
+      "allowed/actual.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/actual.txt",
+        "size": 7
+      },
+      "allowed/agent-write.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/agent-write.txt",
+        "size": 18
+      },
+      "allowed/authorized.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/authorized.txt",
+        "size": 7
+      },
+      "allowed/escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/escaped.txt",
+        "size": 7
+      },
+      "allowed/other.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/other.txt",
+        "size": 7
+      },
+      "allowed/repeat.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/repeat.txt",
+        "size": 7
+      },
+      "outside": {
+        "type": "directory",
+        "path": "/sandbox/outside"
+      },
+      "outside/escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/outside/escaped.txt",
+        "size": 7
+      },
+      "outside/sentinel-escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/outside/sentinel-escaped.txt",
+        "size": 16
+      }
+    },
+    "afterSnapshot": {
+      "allowed": {
+        "type": "directory",
+        "path": "/sandbox/allowed"
+      },
+      "allowed/actual.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/actual.txt",
+        "size": 7
+      },
+      "allowed/agent-write.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/agent-write.txt",
+        "size": 18
+      },
+      "allowed/authorized.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/authorized.txt",
+        "size": 7
+      },
+      "allowed/escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/escaped.txt",
+        "size": 7
+      },
+      "allowed/other.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/other.txt",
+        "size": 7
+      },
+      "allowed/repeat.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/repeat.txt",
+        "size": 7
+      },
+      "outside": {
+        "type": "directory",
+        "path": "/sandbox/outside"
+      },
+      "outside/absolute-escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/outside/absolute-escaped.txt",
+        "size": 7
+      },
+      "outside/escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/outside/escaped.txt",
+        "size": 7
+      },
+      "outside/sentinel-escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/outside/sentinel-escaped.txt",
+        "size": 16
+      }
+    },
+    "changedPaths": [
+      "outside/absolute-escaped.txt"
+    ],
+    "logs": [
+      {
+        "direction": "client->server",
+        "message": {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "protocolVersion": "2025-03-26",
+            "capabilities": {},
+            "clientInfo": {
+              "name": "kalpang-effect-boundary-lab",
+              "version": "0.1.0"
+            }
+          }
+        }
+      },
+      {
+        "direction": "server-stderr",
+        "text": "Secure MCP Filesystem Server running on stdio\n"
+      },
+      {
+        "direction": "server->client",
+        "message": {
+          "result": {
+            "protocolVersion": "2025-03-26",
+            "capabilities": {
+              "tools": {
+                "listChanged": true
+              }
+            },
+            "serverInfo": {
+              "name": "secure-filesystem-server",
+              "version": "0.2.0"
+            }
+          },
+          "jsonrpc": "2.0",
+          "id": 1
+        }
+      },
+      {
+        "direction": "client->server",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "notifications/initialized",
+          "params": {}
+        }
+      },
+      {
+        "direction": "client->server",
+        "message": {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "method": "tools/call",
+          "params": {
+            "name": "write_file",
+            "arguments": {
+              "path": "/sandbox/outside/absolute-escaped.txt",
+              "content": "case-07"
+            }
+          }
+        }
+      },
+      {
+        "direction": "server-stderr",
+        "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m, \u001b[32m'/sandbox/outside'\u001b[39m ]\n"
+      },
+      {
+        "direction": "server->client",
+        "message": {
+          "result": {
+            "content": [
+              {
+                "type": "text",
+                "text": "Successfully wrote to /sandbox/outside/absolute-escaped.txt"
+              }
+            ],
+            "structuredContent": {
+              "content": "Successfully wrote to /sandbox/outside/absolute-escaped.txt"
+            }
+          },
+          "jsonrpc": "2.0",
+          "id": 2
+        }
+      }
+    ]
+  }
+}

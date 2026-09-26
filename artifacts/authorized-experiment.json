@@ -1,0 +1,180 @@
+{
+  "case_id": "authorized-unchanged-execution",
+  "requestedAction": "write_file",
+  "authorizedResource": "/sandbox/allowed",
+  "requestedEffectResource": "/sandbox/allowed/agent-write.txt",
+  "authorizationDecision": "allow",
+  "observedEffects": [
+    {
+      "path": "/sandbox/allowed/agent-write.txt",
+      "inAuthorizedBoundary": true
+    }
+  ],
+  "criterion": "ObservedEffect ⊆ AuthorizedEffect",
+  "finalResult": "PASS",
+  "serverResult": {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Successfully wrote to /sandbox/allowed/agent-write.txt"
+        }
+      ],
+      "structuredContent": {
+        "content": "Successfully wrote to /sandbox/allowed/agent-write.txt"
+      }
+    },
+    "jsonrpc": "2.0",
+    "id": 2
+  },
+  "rawEvidence": {
+    "beforeSnapshot": {
+      "actual.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/actual.txt",
+        "size": 7
+      },
+      "authorized.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/authorized.txt",
+        "size": 7
+      },
+      "escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/escaped.txt",
+        "size": 7
+      },
+      "other.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/other.txt",
+        "size": 7
+      },
+      "repeat.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/repeat.txt",
+        "size": 7
+      }
+    },
+    "afterSnapshot": {
+      "actual.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/actual.txt",
+        "size": 7
+      },
+      "agent-write.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/agent-write.txt",
+        "size": 18
+      },
+      "authorized.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/authorized.txt",
+        "size": 7
+      },
+      "escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/escaped.txt",
+        "size": 7
+      },
+      "other.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/other.txt",
+        "size": 7
+      },
+      "repeat.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/repeat.txt",
+        "size": 7
+      }
+    },
+    "changedPaths": [
+      "agent-write.txt"
+    ],
+    "logs": [
+      {
+        "direction": "client->server",
+        "message": {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "protocolVersion": "2025-03-26",
+            "capabilities": {},
+            "clientInfo": {
+              "name": "kalpang-effect-boundary-lab",
+              "version": "0.1.0"
+            }
+          }
+        }
+      },
+      {
+        "direction": "server-stderr",
+        "text": "Secure MCP Filesystem Server running on stdio\n"
+      },
+      {
+        "direction": "server->client",
+        "message": {
+          "result": {
+            "protocolVersion": "2025-03-26",
+            "capabilities": {
+              "tools": {
+                "listChanged": true
+              }
+            },
+            "serverInfo": {
+              "name": "secure-filesystem-server",
+              "version": "0.2.0"
+            }
+          },
+          "jsonrpc": "2.0",
+          "id": 1
+        }
+      },
+      {
+        "direction": "client->server",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "notifications/initialized",
+          "params": {}
+        }
+      },
+      {
+        "direction": "client->server",
+        "message": {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "method": "tools/call",
+          "params": {
+            "name": "write_file",
+            "arguments": {
+              "path": "/sandbox/allowed/agent-write.txt",
+              "content": "authorized payload"
+            }
+          }
+        }
+      },
+      {
+        "direction": "server-stderr",
+        "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m ]\n"
+      },
+      {
+        "direction": "server->client",
+        "message": {
+          "result": {
+            "content": [
+              {
+                "type": "text",
+                "text": "Successfully wrote to /sandbox/allowed/agent-write.txt"
+              }
+            ],
+            "structuredContent": {
+              "content": "Successfully wrote to /sandbox/allowed/agent-write.txt"
+            }
+          },
+          "jsonrpc": "2.0",
+          "id": 2
+        }
+      }
+    ]
+  }
+}

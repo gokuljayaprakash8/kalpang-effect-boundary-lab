@@ -1,0 +1,186 @@
+{
+  "experiment": "KALPANG Effect Boundary Lab v0.1",
+  "requestedAction": "write_file",
+  "authorizedResource": "/sandbox/allowed",
+  "requestedEffectResource": "/sandbox/allowed/agent-write.txt",
+  "observedEffects": [
+    {
+      "path": "/sandbox/allowed/agent-write.txt",
+      "inAuthorizedBoundary": true
+    }
+  ],
+  "pass": true,
+  "unauthorized": {
+    "requestedAction": "write_file",
+    "authorizedResource": "/sandbox/allowed",
+    "requestedEffectResource": "/sandbox/outside/blocked.txt",
+    "authorizationDecision": "deny",
+    "observedEffects": [],
+    "criterion": "ObservedEffect ⊆ AuthorizedEffect",
+    "finalResult": "FAIL",
+    "blocker": "authorization boundary",
+    "serverBlocker": "not reached",
+    "rawEvidence": {
+      "beforeSnapshot": {
+        "agent-write.txt": {
+          "type": "file",
+          "path": "/sandbox/allowed/agent-write.txt",
+          "size": 18
+        }
+      },
+      "afterSnapshot": {
+        "agent-write.txt": {
+          "type": "file",
+          "path": "/sandbox/allowed/agent-write.txt",
+          "size": 18
+        }
+      },
+      "changedPaths": [],
+      "logs": []
+    }
+  },
+  "divergence": {
+    "requestedAction": "write_file",
+    "authorizedResource": "/sandbox/allowed",
+    "authorizedEffect": "/sandbox/allowed/agent-write.txt",
+    "actualFilesystemEffect": "/sandbox/outside/escaped.txt",
+    "authorizationDecision": "ALLOW",
+    "observedEffects": [
+      {
+        "path": "/sandbox/outside/escaped.txt",
+        "inAuthorizedBoundary": false
+      }
+    ],
+    "observableInvariant": "ObservedEffect ⊆ AuthorizedEffect",
+    "invariantResult": false,
+    "finalResult": "DIVERGENT / FAIL",
+    "divergenceNote": "Authorization approves one target while the execution layer writes a different target.",
+    "rawEvidence": {
+      "beforeSnapshot": {
+        "allowed": {
+          "type": "directory",
+          "path": "/sandbox/allowed"
+        },
+        "allowed/agent-write.txt": {
+          "type": "file",
+          "path": "/sandbox/allowed/agent-write.txt",
+          "size": 18
+        },
+        "outside": {
+          "type": "directory",
+          "path": "/sandbox/outside"
+        }
+      },
+      "afterSnapshot": {
+        "allowed": {
+          "type": "directory",
+          "path": "/sandbox/allowed"
+        },
+        "allowed/agent-write.txt": {
+          "type": "file",
+          "path": "/sandbox/allowed/agent-write.txt",
+          "size": 18
+        },
+        "outside": {
+          "type": "directory",
+          "path": "/sandbox/outside"
+        },
+        "outside/escaped.txt": {
+          "type": "file",
+          "path": "/sandbox/outside/escaped.txt",
+          "size": 15
+        }
+      },
+      "changedPaths": [
+        "outside/escaped.txt"
+      ],
+      "logs": [
+        {
+          "direction": "client->server",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {
+              "protocolVersion": "2025-03-26",
+              "capabilities": {},
+              "clientInfo": {
+                "name": "kalpang-effect-boundary-lab",
+                "version": "0.1.0"
+              }
+            }
+          }
+        },
+        {
+          "direction": "server-stderr",
+          "text": "Secure MCP Filesystem Server running on stdio\n"
+        },
+        {
+          "direction": "server->client",
+          "message": {
+            "result": {
+              "protocolVersion": "2025-03-26",
+              "capabilities": {
+                "tools": {
+                  "listChanged": true
+                }
+              },
+              "serverInfo": {
+                "name": "secure-filesystem-server",
+                "version": "0.2.0"
+              }
+            },
+            "jsonrpc": "2.0",
+            "id": 1
+          }
+        },
+        {
+          "direction": "client->server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "notifications/initialized",
+            "params": {}
+          }
+        },
+        {
+          "direction": "client->server",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": 2,
+            "method": "tools/call",
+            "params": {
+              "name": "write_file",
+              "arguments": {
+                "path": "/sandbox/outside/escaped.txt",
+                "content": "escaped payload"
+              }
+            }
+          }
+        },
+        {
+          "direction": "server-stderr",
+          "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/sandbox/allowed', '/sandbox/outside' ]\n"
+        },
+        {
+          "direction": "server->client",
+          "message": {
+            "result": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Successfully wrote to /sandbox/outside/escaped.txt"
+                }
+              ],
+              "structuredContent": {
+                "content": "Successfully wrote to /sandbox/outside/escaped.txt"
+              }
+            },
+            "jsonrpc": "2.0",
+            "id": 2
+          }
+        }
+      ]
+    }
+  },
+  "invariant": "ObservedEffect ⊆ AuthorizedEffect"
+}

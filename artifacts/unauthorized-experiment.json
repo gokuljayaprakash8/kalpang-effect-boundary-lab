@@ -1,0 +1,80 @@
+{
+  "case_id": "obvious-unauthorized-target",
+  "requestedAction": "write_file",
+  "authorizedResource": "/sandbox/allowed",
+  "requestedEffectResource": "/sandbox/outside/blocked.txt",
+  "authorizationDecision": "deny",
+  "observedEffects": [],
+  "criterion": "ObservedEffect ⊆ AuthorizedEffect",
+  "finalResult": "FAIL",
+  "blocker": "authorization boundary",
+  "serverBlocker": "not reached",
+  "rawEvidence": {
+    "beforeSnapshot": {
+      "actual.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/actual.txt",
+        "size": 7
+      },
+      "agent-write.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/agent-write.txt",
+        "size": 18
+      },
+      "authorized.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/authorized.txt",
+        "size": 7
+      },
+      "escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/escaped.txt",
+        "size": 7
+      },
+      "other.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/other.txt",
+        "size": 7
+      },
+      "repeat.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/repeat.txt",
+        "size": 7
+      }
+    },
+    "afterSnapshot": {
+      "actual.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/actual.txt",
+        "size": 7
+      },
+      "agent-write.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/agent-write.txt",
+        "size": 18
+      },
+      "authorized.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/authorized.txt",
+        "size": 7
+      },
+      "escaped.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/escaped.txt",
+        "size": 7
+      },
+      "other.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/other.txt",
+        "size": 7
+      },
+      "repeat.txt": {
+        "type": "file",
+        "path": "/sandbox/allowed/repeat.txt",
+        "size": 7
+      }
+    },
+    "changedPaths": [],
+    "logs": []
+  }
+}
