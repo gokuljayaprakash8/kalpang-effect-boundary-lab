@@ -5,6 +5,7 @@
     "@modelcontextprotocol/server-filesystem": "^2026.8.31"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "reproduce": "node src/reproduce.js"
   }
 }

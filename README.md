@@ -1,125 +1,63 @@
-# KALPANG Effect Boundary Lab v0.1
+# KALPANG Effect Boundary Lab
 
-Minimal empirical MCP effect-boundary conformance suite: 10 core cases plus one deliberate divergence sentinel (11 scenario runs total).
+This repository is a small, reproducible MCP filesystem experiment. It tests whether a harness can compare an authorization fixture and execution request with the filesystem destination actually changed by a tool call. The current commercial direction is a KALPANG Agent Effect-Boundary Assessment; that is a validation hypothesis, not a demonstrated product or market fit.
 
-## Purpose
+## Experiment
 
-This project is an empirical verification experiment for the relationship between:
+The suite supplies `ALLOW` and `DENY` as harness fixture inputs. They are not decisions from a live authorization service or agent. A denied fixture short-circuits before MCP execution. An allowed fixture invokes the official `@modelcontextprotocol/server-filesystem` package over stdio using MCP protocol version `2025-03-26`, then compares the exact changed path with the fixture-authorized target.
 
-- authorization decisions,
-- execution requests,
-- and independently observed filesystem effects.
+The observer records before/after snapshots of a private temporary filesystem tree. Snapshots include file-content SHA-256 hashes and symlink targets; the harness derives changed paths and stores request/response logs. Case 10 makes two tool calls and records a snapshot after each. The deliberate sentinel authorizes one path while asking the server to write another; both sandbox roots are passed to the server so the server's own path restriction does not prevent the comparison.
 
-The `ALLOW` and `DENY` values are fixture inputs in this harness, not decisions from an independent authorization service or a live agent. For `DENY` fixtures the harness short-circuits before calling the MCP server. For `ALLOW` fixtures it records the real MCP tool response and compares a before/after filesystem snapshot against the exact authorized target. The observer is separate from the fixture decision, but both run in one local harness.
+The experiment asks whether the observed path matches the one fixture-authorized path. It does not test an authorization service or prove that a denied decision was correct.
 
-The suite is deliberately not a claim of a novel security theorem or a vulnerability in the official MCP Filesystem server. The purpose is to test the conformance relation:
+## Reproduce
 
-ObservedEffect ⊆ AuthorizedEffect
-
-and to show how divergence can be detected by independent filesystem inspection.
-
-## Setup
-
-1. Install dependencies from the repository root:
+From the repository root, run the canonical path:
 
 ```bash
 npm ci
-```
-
-2. Create the required sandbox directories and permit writes in this container:
-
-```bash
-sudo mkdir -p /sandbox/allowed /sandbox/outside
-sudo chmod -R 777 /sandbox
-```
-
-The harness also uses `sudo -n` to prepare these paths, so the environment must allow passwordless sudo. It recursively changes permissions only under `/sandbox`.
-
-## Methodology
-
-Each case follows the same minimal pattern:
-
-1. Define an authorized target.
-2. Form an execution request.
-3. Evaluate the authorization decision.
-4. Run the real official `@modelcontextprotocol/server-filesystem` write through stdio.
-5. Remove the selected destination, then snapshot `/sandbox` before and after execution.
-6. Derive the actual changed path(s) from the state difference without trusting the authorization result.
-7. Compare each observed path to the exact authorized effect; an absent effect is not reported as a successful `ALLOW` execution.
-8. Record machine-readable evidence with:
-   - case_id
-   - requested_action
-   - authorized_effect
-   - execution_request
-   - observed_effect
-   - authorization_decision
-   - observed_effect_within_authorization
-   - blocker_layer
-   - final_status
-
-## Cases included
-
-1. authorized unchanged execution
-2. obvious unauthorized target
-3. execution-layer path substitution
-4. filename substitution
-5. relative-path transformation
-6. nested-path boundary escape
-7. absolute-path substitution
-8. authorization/execution parameter mismatch
-9. denied execution with verified zero external effect
-10. repeated execution with independently verified state
-
-The sentinel is the eleventh scenario. It labels one target `ALLOW`, asks the official filesystem server to write a different target, and checks whether the independent snapshot detects the mismatch. The server is deliberately configured to allow both directories so its own path restriction does not block the demonstration.
-
-## Automated verification
-
-```bash
-cd /workspaces/kalpang-effect-boundary-lab
 npm test
+npm run reproduce
 ```
 
-Expected result:
+`npm run reproduce` runs the test suite, runs the standalone experiment, checks measured scenario/evidence consistency, and writes `artifacts/run-provenance.json`. GitHub Actions uses Node 22 and runs these same commands. This local run used Node 24.21.0; provenance records the actual runtime, so the commands and locked dependencies match CI while the runtime major differs.
 
-- 10 core cases and 1 sentinel executed (11 scenarios total)
-- the suite records pass/fail/divergent outcomes in machine-readable form
-- raw evidence is saved under `artifacts/`
+## Measured Run
 
-## Raw evidence
+The checked-in evidence from the current reproduction records 10 core cases plus one deliberate sentinel: 11 scenarios total. The core results are 2 `IN-BOUNDS`, 6 `DIVERGENT`, and 2 `DENIED / NOT EXECUTED`. The sentinel is an additional `DIVERGENT` result, so there are 7 divergences across all 11 scenarios. No core case has an allowed execution with no observed effect. The automated test suite has 5 top-level tests; the reproduction runner reports their pass/fail totals separately from scenario classifications.
 
-The project keeps raw experimental evidence in the `artifacts/` directory, including one JSON record per core case, the suite summary, and the sentinel proof. The summary distinguishes compliant observed effects, divergences, and scenarios with no observed effect.
+These counts are generated from the measured results, not fixed summary values. `conformance-suite-summary.json` stores the per-case classifications and computed counts; `run-provenance.json` records those counts and SHA-256 digests for source files and evidence JSON. The evidence set contains 16 JSON files hashed by the provenance record, plus the provenance file itself.
 
-Earlier standalone experiment records are also retained:
+## Classifications
 
-- `authorized-experiment.json`
-- `unauthorized-experiment.json`
-- `execution-divergence-experiment.json`
-- `conformance-suite-summary.json`
+- `IN-BOUNDS`: an `ALLOW` tool call succeeded and every observed changed path exactly matched the fixture-authorized path.
+- `DIVERGENT`: an `ALLOW` tool call succeeded but the observed path differed from the authorized path. The summary also includes the deliberately divergent sentinel.
+- `DENIED / NOT EXECUTED`: a `DENY` fixture made no MCP call and the before/after sandbox snapshots were unchanged.
+- `NO OBSERVED EFFECT`: no filesystem effect was observed for an allowed execution; this is a failure, not evidence of successful execution.
+- `EXECUTION ERROR`: the tool call did not report success. This is not classified as an in-bounds outcome.
 
-Executed MCP cases include before/after snapshots and server logs for inspection. Denied fixtures have no MCP server log because the harness deliberately does not call the server for those cases.
+`final_status: PASS` is the harness verification result, not a statement that every scenario performed a successful effect. In particular, a denied case can pass verification while `execution_performed` is `false`, `comparison_result` is `DENIED / NOT EXECUTED`, and `observed_effect_within_authorization` is `null`. The harness has no production `INDETERMINATE` lifecycle classification.
 
-## Sentinel divergence proof
+## Evidence And Cleanup
 
-The suite also includes a permanent sentinel case designed to prove that the verifier can detect a known authorization/effect divergence.
+The `artifacts/` directory contains one JSON record per core case, `conformance-suite-summary.json`, `sentinel-divergence-proof.json`, four standalone experiment records, and run provenance. The runner verifies that case JSON matches the measured results before it records provenance. Provenance includes the source commit at run start, source-file hashes, dependency-lock hash, runtime versions, test result, measured classifications, and evidence-file hashes. It is unsigned and does not establish who ran the experiment or whether files were later changed.
 
-Important distinction:
+Each process uses a unique private temporary directory. The standalone runner and test teardown remove only that process's sandbox; evidence is written outside it under `artifacts/` and remains after cleanup. Path checks constrain harness inputs to the private tree and resolve existing symlink ancestors, but they do not eliminate concurrent filesystem races on a compromised host.
 
-- `scenario_result` describes the external scenario itself.
-- `test_result` describes whether the automated verification correctly detected and reported that scenario.
+## Trust And Limits
 
-For the sentinel:
+The current experiment does not yet constitute a production-grade independently trusted external-attestation architecture. The current `ALLOW` and `DENY` values are harness fixture inputs. The current observer measures filesystem state inside the experiment environment and remains subject to that environment's trust assumptions. It is not an independently trusted system of record.
 
-- authorization_decision: `ALLOW`
-- authorized_effect: `/sandbox/allowed/sentinel.txt`
-- observed_effect: `/sandbox/outside/sentinel-escaped.txt`
-- observed_effect_within_authorization: `false`
-- scenario_result: `DIVERGENT`
-- test_result: `PASS`
+The evidence chain separates authorization fixture, execution request/tool call, filesystem observation, path comparison, JSON evidence, and run provenance. These are all produced within one local harness trust domain. The experiment does not provide signed observations, authenticated observer identity, replay protection, trusted source identity, cross-system observation, or an external system-of-record receipt. It does not cover a full agent, other tool types, production authorization, or effects outside its private sandbox; it does not establish a vulnerability in the MCP filesystem server.
 
-This is intentionally non-compliant behavior in the scenario, but the automated test is still a PASS because the verifier correctly identifies the divergence.
+Denied cases prove only that this harness did not invoke the MCP server and observed no sandbox change. A production assessment would need an independently governed observation source appropriate to the action, authenticated evidence bound to the exact authorization and execution, provenance controls, and an explicit result for missing or conflicting observations.
 
-## Interpretation
+## Prior Art And Lineage
 
-This is an empirical conformance/verification procedure, not a novel security theorem. It demonstrates that a fixture authorization claim and a real external effect can diverge in a controlled setting, and that independent filesystem observation can detect the mismatch.
+The strongest direct conceptual overlap is Schrock's IETF Internet-Draft work on Outcome Binding and the Action Evidence Boundary: both address binding authorization/action evidence to observed consequences and classifying divergence. Those documents are drafts, not finalized standards, and do not establish that a production implementation exists. See [docs/prior-art.md](docs/prior-art.md) for the scoped source-led comparison; overlap is acknowledged, not claimed as novelty.
 
-The suite does not claim that the official MCP Filesystem server is vulnerable. It does not test a production authorization system, a full agent, effects outside `/sandbox`, or the security of other tool types. The denied cases establish only that this harness made no MCP call and observed no sandbox change; they do not show that a separate authorization component correctly denied a request.
+SVP Kernel is a separate research lineage exploring semantic validation and runtime policy decisions before execution, with audit evidence. This repository is a narrower engineering experiment about comparing a fixture claim with a later filesystem effect. No SVP decision or code is integrated here, and this experiment does not validate all SVP properties. The lineage is research foundation, then experiment, evidence, and finally a commercial assessment hypothesis.
+
+## Current Result
+
+The experiment demonstrates that, in these local filesystem scenarios, a successful tool write to a different path can be detected by comparing a same-environment filesystem snapshot with the exact fixture-authorized path. It does not establish the trustworthiness of that observation outside the harness, prove a general security property, or show that outcome verification is novel. The practical assessment question is whether this narrow reconciliation can be extended to customer-relevant actions with a trusted system-of-record observer and defensible evidence.

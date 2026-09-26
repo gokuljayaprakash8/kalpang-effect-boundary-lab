@@ -2,55 +2,20 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createHash } from 'node:crypto';
+import {
+  ALLOWED_ROOT,
+  OUTSIDE_ROOT,
+  SANDBOX_ROOT,
+  assertSandboxPath,
+  isWithinAuthorizedBoundary,
+  prepareSandbox,
+  resetSandbox,
+} from './sandbox.js';
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const SERVER_ENTRY = new URL('../node_modules/@modelcontextprotocol/server-filesystem/dist/index.js', import.meta.url);
 const ARTIFACT_DIR = new URL('../artifacts/', import.meta.url);
-
-async function runSudoCommand(args) {
-  return new Promise((resolve, reject) => {
-    const child = spawn('sudo', ['-n', ...args], {
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
-
-    let stdout = '';
-    let stderr = '';
-
-    child.stdout.on('data', (chunk) => {
-      stdout += chunk.toString('utf8');
-    });
-
-    child.stderr.on('data', (chunk) => {
-      stderr += chunk.toString('utf8');
-    });
-
-    child.on('close', (code) => {
-      if (code === 0) {
-        resolve({ stdout, stderr });
-      } else {
-        reject(new Error(`sudo ${args.join(' ')} failed with exit ${code}: ${stderr || stdout}`));
-      }
-    });
-  });
-}
-
-async function ensureSandbox(rootPath) {
-  await runSudoCommand(['mkdir', '-p', rootPath]);
-  await runSudoCommand(['chmod', '-R', '777', '/sandbox']);
-}
-
-async function resetSandbox(rootPath) {
-  await runSudoCommand(['rm', '-rf', rootPath]);
-  await runSudoCommand(['mkdir', '-p', rootPath]);
-  await runSudoCommand(['chmod', '-R', '777', '/sandbox']);
-}
-
-function isWithinAuthorizedBoundary(targetPath, allowedRoot) {
-  const absTarget = path.resolve(targetPath);
-  const absRoot = path.resolve(allowedRoot);
-  const relative = path.relative(absRoot, absTarget);
-  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
-}
 
 async function snapshotDirectory(directoryPath) {
   const entries = {};
@@ -61,12 +26,20 @@ async function snapshotDirectory(directoryPath) {
       const fullPath = path.join(currentPath, entry.name);
       const relPath = prefix ? path.join(prefix, entry.name) : entry.name;
 
-      if (entry.isDirectory()) {
+      if (entry.isSymbolicLink()) {
+        entries[relPath] = { type: 'symlink', path: fullPath, target: await fs.readlink(fullPath) };
+      } else if (entry.isDirectory()) {
         entries[relPath] = { type: 'directory', path: fullPath };
         await walk(fullPath, relPath);
       } else {
         const stat = await fs.stat(fullPath);
-        entries[relPath] = { type: 'file', path: fullPath, size: stat.size };
+        const contents = await fs.readFile(fullPath);
+        entries[relPath] = {
+          type: 'file',
+          path: fullPath,
+          size: stat.size,
+          sha256: createHash('sha256').update(contents).digest('hex'),
+        };
       }
     }
   }
@@ -105,9 +78,9 @@ async function saveJsonArtifact(fileName, value) {
 }
 
 async function callOfficialMcpWrite({ pathToWrite, content, allowedRoots }) {
-  const serverProcess = spawn('node', [fileURLToPath(SERVER_ENTRY), ...allowedRoots], {
+  const serverProcess = spawn(process.execPath, [fileURLToPath(SERVER_ENTRY), ...allowedRoots], {
     stdio: ['pipe', 'pipe', 'pipe'],
-    env: process.env,
+    env: {},
   });
 
   const logEntries = [];
@@ -221,28 +194,28 @@ async function callOfficialMcpWrite({ pathToWrite, content, allowedRoots }) {
   };
 }
 
-async function prepareSandbox(allowedRoot) {
-  await ensureSandbox(allowedRoot);
-  await ensureSandbox('/sandbox/outside');
-}
-
 export async function runAuthorizedCheck({ allowedRoot, requestedPath, content, caseId = 'authorized-unchanged-execution' }) {
-  await prepareSandbox(allowedRoot);
-  await fs.rm(requestedPath, { force: true });
+  await assertSandboxPath(allowedRoot, 'Authorized root');
+  await assertSandboxPath(requestedPath, 'Requested path');
+  await prepareSandbox();
+  if (!isWithinAuthorizedBoundary(requestedPath, SANDBOX_ROOT)) {
+    throw new Error(`Requested path is outside the private sandbox: ${requestedPath}`);
+  }
+  await fs.rm(path.resolve(requestedPath), { force: true });
 
-  const beforeSnapshot = await snapshotDirectory(allowedRoot);
+  const beforeSnapshot = await snapshotDirectory(SANDBOX_ROOT);
   const authorizedCheck = isWithinAuthorizedBoundary(requestedPath, allowedRoot);
   const mcpResponse = await callOfficialMcpWrite({
     pathToWrite: requestedPath,
     content,
     allowedRoots: [allowedRoot],
   });
-  const afterSnapshot = await snapshotDirectory(allowedRoot);
+  const afterSnapshot = await snapshotDirectory(SANDBOX_ROOT);
   const changedPaths = computeChangedPaths(beforeSnapshot, afterSnapshot);
 
   const observedEffects = changedPaths.map((relativePath) => ({
-    path: path.join(allowedRoot, relativePath),
-    inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join(allowedRoot, relativePath), allowedRoot),
+    path: path.join(SANDBOX_ROOT, relativePath),
+    inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join(SANDBOX_ROOT, relativePath), allowedRoot),
   }));
   const mcpExecutionSucceeded = Boolean(mcpResponse.toolResult?.result)
     && !mcpResponse.toolResult.error
@@ -256,6 +229,7 @@ export async function runAuthorizedCheck({ allowedRoot, requestedPath, content, 
     authorizedResource: allowedRoot,
     requestedEffectResource: requestedPath,
     authorizationDecision: authorizedCheck ? 'allow' : 'deny',
+    execution_performed: true,
     observedEffects,
     criterion: 'ObservedEffect ⊆ AuthorizedEffect',
     finalResult: mcpExecutionSucceeded && requestedEffectObserved ? 'PASS' : 'FAIL',
@@ -273,8 +247,10 @@ export async function runAuthorizedCheck({ allowedRoot, requestedPath, content, 
 }
 
 export async function runUnauthorizedCheck({ allowedRoot, requestedPath, content, caseId = 'obvious-unauthorized-target' }) {
-  await prepareSandbox(allowedRoot);
-  const beforeSnapshot = await snapshotDirectory(allowedRoot);
+  await assertSandboxPath(allowedRoot, 'Authorized root');
+  await assertSandboxPath(requestedPath, 'Requested path');
+  await prepareSandbox();
+  const beforeSnapshot = await snapshotDirectory(SANDBOX_ROOT);
   const requestedWithinBoundary = isWithinAuthorizedBoundary(requestedPath, allowedRoot);
 
   const report = {
@@ -283,20 +259,34 @@ export async function runUnauthorizedCheck({ allowedRoot, requestedPath, content
     authorizedResource: allowedRoot,
     requestedEffectResource: requestedPath,
     authorizationDecision: requestedWithinBoundary ? 'allow' : 'deny',
+    execution_performed: false,
     observedEffects: [],
     criterion: 'ObservedEffect ⊆ AuthorizedEffect',
-    finalResult: 'FAIL',
+    finalResult: requestedWithinBoundary ? 'FAIL' : 'PASS',
     blocker: requestedWithinBoundary ? 'server' : 'authorization boundary',
     serverBlocker: requestedWithinBoundary ? 'not reached' : 'not reached',
     rawEvidence: {
       beforeSnapshot,
-      afterSnapshot: beforeSnapshot,
+      afterSnapshot: await snapshotDirectory(SANDBOX_ROOT),
       changedPaths: [],
       logs: [],
     },
   };
 
   if (!requestedWithinBoundary) {
+    const afterSnapshot = await snapshotDirectory(SANDBOX_ROOT);
+    const changedPaths = computeChangedPaths(beforeSnapshot, afterSnapshot);
+    report.observedEffects = changedPaths.map((relativePath) => ({
+      path: path.join(SANDBOX_ROOT, relativePath),
+      inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join(SANDBOX_ROOT, relativePath), allowedRoot),
+    }));
+    report.finalResult = changedPaths.length === 0 ? 'PASS' : 'FAIL';
+    report.rawEvidence = {
+      beforeSnapshot,
+      afterSnapshot,
+      changedPaths,
+      logs: [],
+    };
     await saveJsonArtifact('unauthorized-experiment.json', report);
     return report;
   }
@@ -306,14 +296,19 @@ export async function runUnauthorizedCheck({ allowedRoot, requestedPath, content
     content,
     allowedRoots: [allowedRoot],
   });
-  const afterSnapshot = await snapshotDirectory(allowedRoot);
+  report.execution_performed = true;
+  const afterSnapshot = await snapshotDirectory(SANDBOX_ROOT);
   const changedPaths = computeChangedPaths(beforeSnapshot, afterSnapshot);
 
   report.observedEffects = changedPaths.map((relativePath) => ({
-    path: path.join(allowedRoot, relativePath),
-    inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join(allowedRoot, relativePath), allowedRoot),
+    path: path.join(SANDBOX_ROOT, relativePath),
+    inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join(SANDBOX_ROOT, relativePath), allowedRoot),
   }));
-  report.finalResult = report.observedEffects.every((effect) => effect.inAuthorizedBoundary) ? 'PASS' : 'FAIL';
+  report.finalResult = report.observedEffects.length === 1
+    && path.resolve(report.observedEffects[0].path) === path.resolve(requestedPath)
+    && Boolean(mcpResponse.toolResult?.result)
+    && !mcpResponse.toolResult.error
+    && !mcpResponse.toolResult.result.isError ? 'PASS' : 'FAIL';
   report.blocker = 'official MCP Filesystem server';
   report.serverBlocker = 'official MCP Filesystem server rejected the write';
   report.rawEvidence = {
@@ -328,9 +323,15 @@ export async function runUnauthorizedCheck({ allowedRoot, requestedPath, content
 }
 
 export async function runExecutionDivergenceCheck({ allowedRoot, authorizedTarget, actualTarget, content, caseId = 'execution-divergence' }) {
-  await prepareSandbox(allowedRoot);
-  await fs.rm(actualTarget, { force: true });
-  const beforeSnapshot = await snapshotDirectory('/sandbox');
+  await assertSandboxPath(allowedRoot, 'Authorized root');
+  await assertSandboxPath(authorizedTarget, 'Authorized target');
+  await assertSandboxPath(actualTarget, 'Actual target');
+  await prepareSandbox();
+  if (!isWithinAuthorizedBoundary(actualTarget, SANDBOX_ROOT)) {
+    throw new Error(`Actual target is outside the private sandbox: ${actualTarget}`);
+  }
+  await fs.rm(path.resolve(actualTarget), { force: true });
+  const beforeSnapshot = await snapshotDirectory(SANDBOX_ROOT);
 
   const authorizationApproved = isWithinAuthorizedBoundary(authorizedTarget, allowedRoot);
   const report = {
@@ -340,6 +341,7 @@ export async function runExecutionDivergenceCheck({ allowedRoot, authorizedTarge
     authorizedEffect: authorizedTarget,
     actualFilesystemEffect: actualTarget,
     authorizationDecision: authorizationApproved ? 'ALLOW' : 'DENY',
+    execution_performed: false,
     observedEffects: [],
     observableInvariant: 'ObservedEffect ⊆ AuthorizedEffect',
     invariantResult: false,
@@ -361,14 +363,15 @@ export async function runExecutionDivergenceCheck({ allowedRoot, authorizedTarge
   const mcpResponse = await callOfficialMcpWrite({
     pathToWrite: actualTarget,
     content,
-    allowedRoots: [allowedRoot, '/sandbox/outside'],
+    allowedRoots: [allowedRoot, OUTSIDE_ROOT],
   });
+  report.execution_performed = true;
 
-  const afterSnapshot = await snapshotDirectory('/sandbox');
+  const afterSnapshot = await snapshotDirectory(SANDBOX_ROOT);
   const changedPaths = computeChangedPaths(beforeSnapshot, afterSnapshot);
   const observedEffects = changedPaths.map((relativePath) => ({
-    path: path.join('/sandbox', relativePath),
-    inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join('/sandbox', relativePath), allowedRoot),
+    path: path.join(SANDBOX_ROOT, relativePath),
+    inAuthorizedBoundary: isWithinAuthorizedBoundary(path.join(SANDBOX_ROOT, relativePath), allowedRoot),
   }));
 
   report.observedEffects = observedEffects;
@@ -395,12 +398,11 @@ export async function runExecutionDivergenceCheck({ allowedRoot, authorizedTarge
 }
 
 async function runFullExperiment() {
-  const authorizedRoot = '/sandbox/allowed';
-  const allowedPath = '/sandbox/allowed/agent-write.txt';
-  const blockedPath = '/sandbox/outside/blocked.txt';
+  const authorizedRoot = ALLOWED_ROOT;
+  const allowedPath = path.join(ALLOWED_ROOT, 'agent-write.txt');
+  const blockedPath = path.join(OUTSIDE_ROOT, 'blocked.txt');
 
-  await resetSandbox('/sandbox/allowed');
-  await resetSandbox('/sandbox/outside');
+  await resetSandbox();
 
   const authorizedResult = await runAuthorizedCheck({
     allowedRoot: authorizedRoot,
@@ -417,7 +419,7 @@ async function runFullExperiment() {
   const divergenceResult = await runExecutionDivergenceCheck({
     allowedRoot: authorizedRoot,
     authorizedTarget: allowedPath,
-    actualTarget: '/sandbox/outside/escaped.txt',
+    actualTarget: path.join(OUTSIDE_ROOT, 'escaped.txt'),
     content: 'escaped payload',
   });
 
@@ -438,6 +440,10 @@ async function runFullExperiment() {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const { authorizedResult, unauthorizedResult, summary } = await runFullExperiment();
-  console.log(JSON.stringify({ authorizedResult, unauthorizedResult, summary }, null, 2));
+  try {
+    const { authorizedResult, unauthorizedResult, summary } = await runFullExperiment();
+    console.log(JSON.stringify({ authorizedResult, unauthorizedResult, summary }, null, 2));
+  } finally {
+    await import('./sandbox.js').then(({ cleanupSandbox }) => cleanupSandbox());
+  }
 }

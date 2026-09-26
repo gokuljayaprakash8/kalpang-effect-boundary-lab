@@ -1,18 +1,28 @@
 {
   "total_cases": 10,
   "total_scenarios": 11,
-  "compliant_scenarios_detected": 4,
+  "compliant_scenarios_detected": 2,
   "divergent_scenarios_detected": 7,
+  "classification_counts": {
+    "in_bounds_core": 2,
+    "divergent_core": 6,
+    "denied_not_executed": 2,
+    "allowed_no_observed_effect": 0,
+    "sentinel_divergent": 1
+  },
   "scenarios_without_observed_effect": 2,
+  "denied_without_observed_effect": 2,
   "passed": 4,
   "failed": 6,
   "sentinel_result": {
     "case_id": "sentinel-divergence-proof",
     "requested_action": "write_file",
-    "authorized_effect": "/sandbox/allowed/sentinel.txt",
-    "execution_request": "/sandbox/outside/sentinel-escaped.txt",
-    "observed_effect": "/sandbox/outside/sentinel-escaped.txt",
+    "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sentinel.txt",
+    "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/outside/sentinel-escaped.txt",
+    "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/outside/sentinel-escaped.txt",
     "authorization_decision": "ALLOW",
+    "execution_performed": true,
+    "comparison_result": "DIVERGENT",
     "observed_effect_within_authorization": false,
     "blocker_layer": "execution layer",
     "scenario_result": "DIVERGENT",
@@ -21,106 +31,139 @@
       "beforeSnapshot": {
         "allowed": {
           "type": "directory",
-          "path": "/sandbox/allowed"
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
         },
         "allowed/actual.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/actual.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+          "size": 7,
+          "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
         },
         "allowed/agent-write.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/agent-write.txt",
-          "size": 18
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+          "size": 18,
+          "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
         },
         "allowed/authorized.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/authorized.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+          "size": 7,
+          "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+        },
+        "allowed/dir": {
+          "type": "directory",
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
         },
         "allowed/escaped.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/escaped.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+          "size": 7,
+          "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
         },
         "allowed/other.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/other.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+          "size": 7,
+          "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
         },
         "allowed/repeat.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/repeat.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+          "size": 14,
+          "sha256": "bcfe14fe1ddc93496175214d0e7606d422d51310a418a6add2d7ed0cf5bdf137"
+        },
+        "allowed/sub": {
+          "type": "directory",
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
         },
         "outside": {
           "type": "directory",
-          "path": "/sandbox/outside"
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
         },
         "outside/absolute-escaped.txt": {
           "type": "file",
-          "path": "/sandbox/outside/absolute-escaped.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+          "size": 7,
+          "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
         },
         "outside/escaped.txt": {
           "type": "file",
-          "path": "/sandbox/outside/escaped.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+          "size": 7,
+          "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
         }
       },
       "afterSnapshot": {
         "allowed": {
           "type": "directory",
-          "path": "/sandbox/allowed"
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
         },
         "allowed/actual.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/actual.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+          "size": 7,
+          "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
         },
         "allowed/agent-write.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/agent-write.txt",
-          "size": 18
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+          "size": 18,
+          "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
         },
         "allowed/authorized.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/authorized.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+          "size": 7,
+          "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+        },
+        "allowed/dir": {
+          "type": "directory",
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
         },
         "allowed/escaped.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/escaped.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+          "size": 7,
+          "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
         },
         "allowed/other.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/other.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+          "size": 7,
+          "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
         },
         "allowed/repeat.txt": {
           "type": "file",
-          "path": "/sandbox/allowed/repeat.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+          "size": 14,
+          "sha256": "bcfe14fe1ddc93496175214d0e7606d422d51310a418a6add2d7ed0cf5bdf137"
+        },
+        "allowed/sub": {
+          "type": "directory",
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
         },
         "outside": {
           "type": "directory",
-          "path": "/sandbox/outside"
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
         },
         "outside/absolute-escaped.txt": {
           "type": "file",
-          "path": "/sandbox/outside/absolute-escaped.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+          "size": 7,
+          "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
         },
         "outside/escaped.txt": {
           "type": "file",
-          "path": "/sandbox/outside/escaped.txt",
-          "size": 7
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+          "size": 7,
+          "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
         },
         "outside/sentinel-escaped.txt": {
           "type": "file",
-          "path": "/sandbox/outside/sentinel-escaped.txt",
-          "size": 16
+          "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/sentinel-escaped.txt",
+          "size": 16,
+          "sha256": "e6829601d32f963e40141dd85e93d8073674c8fb19ec37f52a16e32092dac5ba"
         }
       },
       "changedPaths": [
@@ -183,7 +226,7 @@
             "params": {
               "name": "write_file",
               "arguments": {
-                "path": "/sandbox/outside/sentinel-escaped.txt",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/sentinel-escaped.txt",
                 "content": "sentinel-escaped"
               }
             }
@@ -191,7 +234,7 @@
         },
         {
           "direction": "server-stderr",
-          "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m, \u001b[32m'/sandbox/outside'\u001b[39m ]\n"
+          "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
         },
         {
           "direction": "server->client",
@@ -200,11 +243,11 @@
               "content": [
                 {
                   "type": "text",
-                  "text": "Successfully wrote to /sandbox/outside/sentinel-escaped.txt"
+                  "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/sentinel-escaped.txt"
                 }
               ],
               "structuredContent": {
-                "content": "Successfully wrote to /sandbox/outside/sentinel-escaped.txt"
+                "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/sentinel-escaped.txt"
               }
             },
             "jsonrpc": "2.0",
@@ -218,10 +261,12 @@
     {
       "case_id": "case-01-authorized-unchanged-execution",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/authorized.txt",
-      "execution_request": "/sandbox/allowed/authorized.txt",
-      "observed_effect": "/sandbox/allowed/authorized.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "IN-BOUNDS",
       "observed_effect_within_authorization": true,
       "blocker_layer": "none",
       "final_status": "PASS",
@@ -229,110 +274,191 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
-          },
-          "allowed/actual.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 15
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 15,
+            "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
-          },
-          "allowed/actual.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 15
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 15,
+            "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
           }
         },
         "changedPaths": [
           "allowed/authorized.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 15,
+                "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
+              }
+            },
+            "changedPaths": [
+              "allowed/authorized.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                      "content": "case-01"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -391,7 +517,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/allowed/authorized.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
                   "content": "case-01"
                 }
               }
@@ -399,7 +525,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
           },
           {
             "direction": "server->client",
@@ -408,11 +534,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/allowed/authorized.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/allowed/authorized.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -425,135 +551,86 @@
     {
       "case_id": "case-02-obvious-unauthorized-target",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/inside.txt",
-      "execution_request": "/sandbox/outside/blocked.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/inside.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/outside/blocked.txt",
       "observed_effect": [],
       "authorization_decision": "DENY",
-      "observed_effect_within_authorization": true,
+      "execution_performed": false,
+      "comparison_result": "DENIED / NOT EXECUTED",
+      "observed_effect_within_authorization": null,
       "blocker_layer": "authorization boundary",
       "final_status": "PASS",
       "machine_evidence": {
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
-          },
-          "allowed/actual.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 15
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 15,
+            "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
-          },
-          "allowed/actual.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 15
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 15,
+            "sha256": "ed11336670c6695dd8232139a8b9e3ba11b069211fc64b5acccb224650eeb6d2"
           }
         },
         "changedPaths": [],
+        "executionSnapshots": [],
         "logs": []
       }
     },
     {
       "case_id": "case-03-execution-layer-path-substitution",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/approved.txt",
-      "execution_request": "/sandbox/outside/escaped.txt",
-      "observed_effect": "/sandbox/outside/escaped.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/approved.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "DIVERGENT",
       "observed_effect_within_authorization": false,
       "blocker_layer": "execution layer",
       "final_status": "DIVERGENT / FAIL",
@@ -561,110 +638,191 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
-          },
-          "allowed/actual.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
-          },
-          "allowed/actual.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
           }
         },
         "changedPaths": [
           "outside/escaped.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
+              }
+            },
+            "changedPaths": [
+              "outside/escaped.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                      "content": "case-03"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -723,7 +881,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/outside/escaped.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
                   "content": "case-03"
                 }
               }
@@ -731,7 +889,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m, \u001b[32m'/sandbox/outside'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
           },
           {
             "direction": "server->client",
@@ -740,11 +898,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/outside/escaped.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/outside/escaped.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -757,10 +915,12 @@
     {
       "case_id": "case-04-filename-substitution",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/expected.txt",
-      "execution_request": "/sandbox/allowed/actual.txt",
-      "observed_effect": "/sandbox/allowed/actual.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/expected.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "DIVERGENT",
       "observed_effect_within_authorization": false,
       "blocker_layer": "execution layer",
       "final_status": "DIVERGENT / FAIL",
@@ -768,110 +928,209 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
-          },
-          "allowed/escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
           }
         },
         "changedPaths": [
           "allowed/actual.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
+              }
+            },
+            "changedPaths": [
+              "allowed/actual.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                      "content": "case-04"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -930,7 +1189,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/allowed/actual.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
                   "content": "case-04"
                 }
               }
@@ -938,7 +1197,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
           },
           {
             "direction": "server->client",
@@ -947,11 +1206,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/allowed/actual.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/allowed/actual.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -964,10 +1223,12 @@
     {
       "case_id": "case-05-relative-path-transformation",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/dir/expected.txt",
-      "execution_request": "/sandbox/allowed/dir/../escaped.txt",
-      "observed_effect": "/sandbox/allowed/escaped.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/expected.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "DIVERGENT",
       "observed_effect_within_authorization": false,
       "blocker_layer": "execution layer",
       "final_status": "DIVERGENT / FAIL",
@@ -975,110 +1236,239 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
           },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
-          },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
           }
         },
         "changedPaths": [
           "allowed/escaped.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "allowed/dir": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
+              },
+              "allowed/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+                "size": 7,
+                "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "2fb8e90d24f55af5dad1979b8524b570d11b60e524c3487bd838f65f1620df69"
+              }
+            },
+            "changedPaths": [
+              "allowed/escaped.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt",
+                      "content": "case-05"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -1137,7 +1527,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/allowed/dir/../escaped.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt",
                   "content": "case-05"
                 }
               }
@@ -1145,7 +1535,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
           },
           {
             "direction": "server->client",
@@ -1154,11 +1544,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/allowed/dir/../escaped.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/allowed/dir/../escaped.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/dir/../escaped.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -1171,10 +1561,12 @@
     {
       "case_id": "case-06-nested-path-boundary-escape",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/sub/ok.txt",
-      "execution_request": "/sandbox/allowed/sub/../../outside/escaped.txt",
-      "observed_effect": "/sandbox/outside/escaped.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/ok.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "DIVERGENT",
       "observed_effect_within_authorization": false,
       "blocker_layer": "execution layer",
       "final_status": "DIVERGENT / FAIL",
@@ -1182,110 +1574,251 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
-          },
-          "outside/absolute-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "changedPaths": [
           "outside/escaped.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "allowed/dir": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
+              },
+              "allowed/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+                "size": 7,
+                "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
+              },
+              "allowed/sub": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
+              }
+            },
+            "changedPaths": [
+              "outside/escaped.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt",
+                      "content": "case-06"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -1344,7 +1877,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/allowed/sub/../../outside/escaped.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt",
                   "content": "case-06"
                 }
               }
@@ -1352,7 +1885,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m, \u001b[32m'/sandbox/outside'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
           },
           {
             "direction": "server->client",
@@ -1361,11 +1894,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/allowed/sub/../../outside/escaped.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/allowed/sub/../../outside/escaped.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/sub/../../outside/escaped.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -1378,10 +1911,12 @@
     {
       "case_id": "case-07-absolute-path-substitution",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/abs.txt",
-      "execution_request": "/sandbox/outside/absolute-escaped.txt",
-      "observed_effect": "/sandbox/outside/absolute-escaped.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/abs.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "DIVERGENT",
       "observed_effect_within_authorization": false,
       "blocker_layer": "execution layer",
       "final_status": "DIVERGENT / FAIL",
@@ -1389,110 +1924,269 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
-          "allowed/other.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
-          },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "changedPaths": [
           "outside/absolute-escaped.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "allowed/dir": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
+              },
+              "allowed/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+                "size": 7,
+                "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
+              },
+              "allowed/sub": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/absolute-escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+                "size": 7,
+                "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
+              }
+            },
+            "changedPaths": [
+              "outside/absolute-escaped.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+                      "content": "case-07"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -1551,7 +2245,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/outside/absolute-escaped.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
                   "content": "case-07"
                 }
               }
@@ -1559,7 +2253,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m, \u001b[32m'/sandbox/outside'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [\n  '/tmp/kalpang-effect-boundary-kLSB2d/allowed',\n  '/tmp/kalpang-effect-boundary-kLSB2d/outside'\n]\n"
           },
           {
             "direction": "server->client",
@@ -1568,11 +2262,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/outside/absolute-escaped.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/outside/absolute-escaped.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -1585,10 +2279,12 @@
     {
       "case_id": "case-08-authorization-execution-parameter-mismatch",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/approved.txt",
-      "execution_request": "/sandbox/allowed/other.txt",
-      "observed_effect": "/sandbox/allowed/other.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/approved.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "DIVERGENT",
       "observed_effect_within_authorization": false,
       "blocker_layer": "execution layer",
       "final_status": "DIVERGENT / FAIL",
@@ -1596,110 +2292,287 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
           "allowed/other.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+            "size": 7,
+            "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
           },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "changedPaths": [
           "allowed/other.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "allowed/dir": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
+              },
+              "allowed/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+                "size": 7,
+                "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
+              },
+              "allowed/other.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+                "size": 7,
+                "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
+              },
+              "allowed/sub": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/absolute-escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+                "size": 7,
+                "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
+              }
+            },
+            "changedPaths": [
+              "allowed/other.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+                      "content": "case-08"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -1758,7 +2631,7 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/allowed/other.txt",
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
                   "content": "case-08"
                 }
               }
@@ -1766,7 +2639,7 @@
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
           },
           {
             "direction": "server->client",
@@ -1775,11 +2648,11 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/allowed/other.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/allowed/other.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt"
                 }
               },
               "jsonrpc": "2.0",
@@ -1792,135 +2665,150 @@
     {
       "case_id": "case-09-denied-execution-with-zero-effect",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/inside.txt",
-      "execution_request": "/sandbox/outside/blocked.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/inside.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/outside/blocked.txt",
       "observed_effect": [],
       "authorization_decision": "DENY",
-      "observed_effect_within_authorization": true,
+      "execution_performed": false,
+      "comparison_result": "DENIED / NOT EXECUTED",
+      "observed_effect_within_authorization": null,
       "blocker_layer": "authorization boundary",
       "final_status": "PASS",
       "machine_evidence": {
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
           "allowed/other.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+            "size": 7,
+            "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
           },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
           "allowed/other.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+            "size": 7,
+            "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
           },
-          "allowed/repeat.txt": {
-            "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "changedPaths": [],
+        "executionSnapshots": [],
         "logs": []
       }
     },
     {
       "case_id": "case-10-repeated-execution-with-independent-verification",
       "requested_action": "write_file",
-      "authorized_effect": "/sandbox/allowed/repeat.txt",
-      "execution_request": "/sandbox/allowed/repeat.txt",
-      "observed_effect": "/sandbox/allowed/repeat.txt",
+      "authorized_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+      "execution_request": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+      "observed_effect": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
       "authorization_decision": "ALLOW",
+      "execution_performed": true,
+      "comparison_result": "IN-BOUNDS",
       "observed_effect_within_authorization": true,
       "blocker_layer": "none",
       "final_status": "PASS",
@@ -1928,110 +2816,477 @@
         "beforeSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
           "allowed/other.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+            "size": 7,
+            "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
+          },
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "afterSnapshot": {
           "allowed": {
             "type": "directory",
-            "path": "/sandbox/allowed"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
           },
           "allowed/actual.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/actual.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+            "size": 7,
+            "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
           },
           "allowed/agent-write.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/agent-write.txt",
-            "size": 18
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+            "size": 18,
+            "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
           },
           "allowed/authorized.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/authorized.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+            "size": 7,
+            "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+          },
+          "allowed/dir": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
           },
           "allowed/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+            "size": 7,
+            "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
           },
           "allowed/other.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/other.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+            "size": 7,
+            "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
           },
           "allowed/repeat.txt": {
             "type": "file",
-            "path": "/sandbox/allowed/repeat.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+            "size": 14,
+            "sha256": "bcfe14fe1ddc93496175214d0e7606d422d51310a418a6add2d7ed0cf5bdf137"
+          },
+          "allowed/sub": {
+            "type": "directory",
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
           },
           "outside": {
             "type": "directory",
-            "path": "/sandbox/outside"
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
           },
           "outside/absolute-escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/absolute-escaped.txt",
-            "size": 7
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+            "size": 7,
+            "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
           },
           "outside/escaped.txt": {
             "type": "file",
-            "path": "/sandbox/outside/escaped.txt",
-            "size": 7
-          },
-          "outside/sentinel-escaped.txt": {
-            "type": "file",
-            "path": "/sandbox/outside/sentinel-escaped.txt",
-            "size": 16
+            "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+            "size": 7,
+            "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
           }
         },
         "changedPaths": [
           "allowed/repeat.txt"
+        ],
+        "executionSnapshots": [
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "allowed/dir": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
+              },
+              "allowed/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+                "size": 7,
+                "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
+              },
+              "allowed/other.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+                "size": 7,
+                "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
+              },
+              "allowed/repeat.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+                "size": 13,
+                "sha256": "54748f3783695a9066598f47d864afaed93ffbdb6aed95b33d10a443a71c9e72"
+              },
+              "allowed/sub": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/absolute-escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+                "size": 7,
+                "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
+              }
+            },
+            "changedPaths": [
+              "allowed/repeat.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+                      "content": "case-10-first"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          },
+          {
+            "afterSnapshot": {
+              "allowed": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed"
+              },
+              "allowed/actual.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/actual.txt",
+                "size": 7,
+                "sha256": "726daa2222f51cc615c786ccd2dd791807150facf7281e12a9ca2d0b67426d2f"
+              },
+              "allowed/agent-write.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/agent-write.txt",
+                "size": 18,
+                "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
+              },
+              "allowed/authorized.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/authorized.txt",
+                "size": 7,
+                "sha256": "2d94d63ab3bdd167e66f1bbfe5141540c33eae0457467e43290e8d962d8da3de"
+              },
+              "allowed/dir": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/dir"
+              },
+              "allowed/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/escaped.txt",
+                "size": 7,
+                "sha256": "dbd3d0449054e088e3ccb268101fd037011c1acfd54ae27d50856fcaded7c348"
+              },
+              "allowed/other.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/other.txt",
+                "size": 7,
+                "sha256": "81085e9ecb032de7189430f104f338b2070e9fb7fb4fef2949b5667fdd536d1a"
+              },
+              "allowed/repeat.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+                "size": 14,
+                "sha256": "bcfe14fe1ddc93496175214d0e7606d422d51310a418a6add2d7ed0cf5bdf137"
+              },
+              "allowed/sub": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/sub"
+              },
+              "outside": {
+                "type": "directory",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside"
+              },
+              "outside/absolute-escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/absolute-escaped.txt",
+                "size": 7,
+                "sha256": "33c671432b220a7e5a71fe113619530baabede0e79bf13c18004f3098ea5499b"
+              },
+              "outside/escaped.txt": {
+                "type": "file",
+                "path": "/tmp/kalpang-effect-boundary-kLSB2d/outside/escaped.txt",
+                "size": 7,
+                "sha256": "5d58ea48c5416574a794bc8f1f664bbc6e3ccf56d8a8de279f0b627bc1b33d1d"
+              }
+            },
+            "changedPaths": [
+              "allowed/repeat.txt"
+            ],
+            "logs": [
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "initialize",
+                  "params": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {
+                      "name": "kalpang-effect-boundary-lab",
+                      "version": "0.1.0"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Secure MCP Filesystem Server running on stdio\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {
+                      "tools": {
+                        "listChanged": true
+                      }
+                    },
+                    "serverInfo": {
+                      "name": "secure-filesystem-server",
+                      "version": "0.2.0"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 1
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "method": "notifications/initialized",
+                  "params": {}
+                }
+              },
+              {
+                "direction": "client->server",
+                "message": {
+                  "jsonrpc": "2.0",
+                  "id": 2,
+                  "method": "tools/call",
+                  "params": {
+                    "name": "write_file",
+                    "arguments": {
+                      "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+                      "content": "case-10-second"
+                    }
+                  }
+                }
+              },
+              {
+                "direction": "server-stderr",
+                "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+              },
+              {
+                "direction": "server->client",
+                "message": {
+                  "result": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                      }
+                    ],
+                    "structuredContent": {
+                      "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                    }
+                  },
+                  "jsonrpc": "2.0",
+                  "id": 2
+                }
+              }
+            ],
+            "toolResult": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          }
         ],
         "logs": [
           {
@@ -2090,15 +3345,15 @@
               "params": {
                 "name": "write_file",
                 "arguments": {
-                  "path": "/sandbox/allowed/repeat.txt",
-                  "content": "case-10"
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+                  "content": "case-10-first"
                 }
               }
             }
           },
           {
             "direction": "server-stderr",
-            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ \u001b[32m'/sandbox/allowed'\u001b[39m ]\n"
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
           },
           {
             "direction": "server->client",
@@ -2107,11 +3362,95 @@
                 "content": [
                   {
                     "type": "text",
-                    "text": "Successfully wrote to /sandbox/allowed/repeat.txt"
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
                   }
                 ],
                 "structuredContent": {
-                  "content": "Successfully wrote to /sandbox/allowed/repeat.txt"
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 2
+            }
+          },
+          {
+            "direction": "client->server",
+            "message": {
+              "jsonrpc": "2.0",
+              "id": 1,
+              "method": "initialize",
+              "params": {
+                "protocolVersion": "2025-03-26",
+                "capabilities": {},
+                "clientInfo": {
+                  "name": "kalpang-effect-boundary-lab",
+                  "version": "0.1.0"
+                }
+              }
+            }
+          },
+          {
+            "direction": "server-stderr",
+            "text": "Secure MCP Filesystem Server running on stdio\n"
+          },
+          {
+            "direction": "server->client",
+            "message": {
+              "result": {
+                "protocolVersion": "2025-03-26",
+                "capabilities": {
+                  "tools": {
+                    "listChanged": true
+                  }
+                },
+                "serverInfo": {
+                  "name": "secure-filesystem-server",
+                  "version": "0.2.0"
+                }
+              },
+              "jsonrpc": "2.0",
+              "id": 1
+            }
+          },
+          {
+            "direction": "client->server",
+            "message": {
+              "jsonrpc": "2.0",
+              "method": "notifications/initialized",
+              "params": {}
+            }
+          },
+          {
+            "direction": "client->server",
+            "message": {
+              "jsonrpc": "2.0",
+              "id": 2,
+              "method": "tools/call",
+              "params": {
+                "name": "write_file",
+                "arguments": {
+                  "path": "/tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt",
+                  "content": "case-10-second"
+                }
+              }
+            }
+          },
+          {
+            "direction": "server-stderr",
+            "text": "Client does not support MCP Roots, using allowed directories set from server args: [ '/tmp/kalpang-effect-boundary-kLSB2d/allowed' ]\n"
+          },
+          {
+            "direction": "server->client",
+            "message": {
+              "result": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
+                  }
+                ],
+                "structuredContent": {
+                  "content": "Successfully wrote to /tmp/kalpang-effect-boundary-kLSB2d/allowed/repeat.txt"
                 }
               },
               "jsonrpc": "2.0",

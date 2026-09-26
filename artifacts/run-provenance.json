@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab",
+  "source_commit": "82b9c9bd0685ea585ccd08a3637d3697ab57a25e",
+  "source_worktree_clean_at_start": false,
+  "source_files_sha256": {
+    "package.json": "a1bf76a781c329aa46ed09b2209fc4917bff1b967bcce2948fde6d34fd8551ee",
+    "package-lock.json": "38ddb8288c408c058503a15da5a908437f11993e60aa050de6e9de969d1391e4",
+    "README.md": "e2127e973a43910c46626ed08173f2da9ff663d7645e1eff180155de828a8c69",
+    ".github/workflows/reproducibility.yml": "63d9aa288198507a265e3e9f325685ac58a135022b25d86d1347179e504edf6f",
+    "docs/prior-art.md": "07a8bdab0a75174f999f1b8372d8d9402d1194ad00a5d809c60d6c8522d3953b",
+    "src/conformance-suite.js": "b7d1d74ce1603c15dff98ccf0b471e69973a63c83c1c95f57e323ac3676cde7d",
+    "src/experiment.js": "dbf4894071ba035ddcc1c8d3945f6554d1b312d3b75632c0ddae6cbe5b23ec6d",
+    "src/reproduce.js": "859c8793af458cf8f17e499cb17b0df07e3dd5847a687daecaa19b42275a4211",
+    "src/sandbox.js": "9ecade46b7f054c7dcae201c6a8564fabb139f032b461e9d98a6d164ca816d7b",
+    "test/effect-boundary.test.js": "59f06977f918557b1e282e82600be5323b63a265e97fb8240f5d391099a6743f"
+  },
+  "generated_at": "2026-09-26T09:14:08.687Z",
+  "runtime": {
+    "node": "v24.21.0",
+    "npm": "11.19.0"
+  },
+  "dependency_lock": {
+    "file": "package-lock.json",
+    "sha256": "38ddb8288c408c058503a15da5a908437f11993e60aa050de6e9de969d1391e4"
+  },
+  "reproduction_commands": [
+    "npm ci",
+    "npm run reproduce"
+  ],
+  "test_result": {
+    "test_count": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "experiment_result": {
+    "core_cases": 10,
+    "total_scenarios_including_sentinel": 11,
+    "allowed_effects_in_bounds": 2,
+    "allowed_effects_divergent": 6,
+    "denied_without_observed_effect": 2,
+    "sentinel_scenario": "DIVERGENT",
+    "sentinel_test": "PASS",
+    "classification_counts": {
+      "in_bounds_core": 2,
+      "divergent_core": 6,
+      "denied_not_executed": 2,
+      "allowed_no_observed_effect": 0,
+      "sentinel_divergent": 1
+    }
+  },
+  "evidence_files_count": 16,
+  "evidence_sha256": {
+    "authorized-experiment.json": "182b51ac82ede590859bc875c0804443f60568d7021f4c0e4f8660e3834e232d",
+    "case-01-authorized-unchanged-execution.json": "1c7653229136a207b24292307ad8c411dd593de628cddc7bc2b89b3e52427a82",
+    "case-02-obvious-unauthorized-target.json": "06095727178ad22e09e8d2c52a8bbc6636498479b411f6779bdf57b1f70674c0",
+    "case-03-execution-layer-path-substitution.json": "934c2559e8d8f0bb061d4d3b04662a41edac9fc624faf8a8683c362ef7e43e11",
+    "case-04-filename-substitution.json": "edbbbccdbd5904af5ce5c69072f3efb462ad05e6098ae9974879cfa15c3d175a",
+    "case-05-relative-path-transformation.json": "4d2b83767bbcb324ca72c4885be629ca38e30a75ff8c1dfa1518c451293a7d65",
+    "case-06-nested-path-boundary-escape.json": "02bb95c536268299faed63249a68f07f54e2ad44202ca48cba9788a84a865799",
+    "case-07-absolute-path-substitution.json": "0bad7defe5d187de626390cacc962a95ceb25869b1cccba5f4ddc015a44884a4",
+    "case-08-authorization-execution-parameter-mismatch.json": "a4c254d0c7d3705821f1a1f2e226b132854d57329d89886e1bc52c177cc9f3d7",
+    "case-09-denied-execution-with-zero-effect.json": "285a2fcf14d35efc8708430ec14282dc89e59f876a9296d6f05b24a637c86685",
+    "case-10-repeated-execution-with-independent-verification.json": "977205b6cb6c009053eb4c3d8dee73600989a29b2cdefa811bd1701c0f16d550",
+    "conformance-suite-summary.json": "38e6741463e15b9f94f4af37ce321930e6848d0a255e148411fca0f8e9413866",
+    "execution-divergence-experiment.json": "cec358bd8d717a2fa9b4db166c8ee9f1bb011e386316d64f9e610db12cc94439",
+    "experiment-summary.json": "27894864a3c1fc5ee9903796da6102cb4cf88d298e8283a273f1442375e2dd4e",
+    "sentinel-divergence-proof.json": "c57c4d6a78d0bf50397717e04db3beac910dd6142cbe802018879d430f9fe15a",
+    "unauthorized-experiment.json": "d469226594e4c99acc94197e32037546580fd5da07f1d6715fc2f527af50d522"
+  },
+  "known_limitations": [
+    "Authorization values are harness fixture inputs; no live authorization service or agent is tested.",
+    "Filesystem snapshots run in the same process trust domain and are not an independent or tamper-resistant observer.",
+    "The experiment does not implement cryptographic receipts, trusted source identity, replay protection, cross-system observation, or an INDETERMINATE lifecycle state."
+  ]
+}

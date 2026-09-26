@@ -1,77 +1,46 @@
 {
   "case_id": "obvious-unauthorized-target",
   "requestedAction": "write_file",
-  "authorizedResource": "/sandbox/allowed",
-  "requestedEffectResource": "/sandbox/outside/blocked.txt",
+  "authorizedResource": "/tmp/kalpang-effect-boundary-lhZjuu/allowed",
+  "requestedEffectResource": "/tmp/kalpang-effect-boundary-lhZjuu/outside/blocked.txt",
   "authorizationDecision": "deny",
+  "execution_performed": false,
   "observedEffects": [],
   "criterion": "ObservedEffect ⊆ AuthorizedEffect",
-  "finalResult": "FAIL",
+  "finalResult": "PASS",
   "blocker": "authorization boundary",
   "serverBlocker": "not reached",
   "rawEvidence": {
     "beforeSnapshot": {
-      "actual.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/actual.txt",
-        "size": 7
+      "allowed": {
+        "type": "directory",
+        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed"
       },
-      "agent-write.txt": {
+      "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/sandbox/allowed/agent-write.txt",
-        "size": 18
+        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+        "size": 18,
+        "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
-      "authorized.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/authorized.txt",
-        "size": 7
-      },
-      "escaped.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/escaped.txt",
-        "size": 7
-      },
-      "other.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/other.txt",
-        "size": 7
-      },
-      "repeat.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/repeat.txt",
-        "size": 7
+      "outside": {
+        "type": "directory",
+        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside"
       }
     },
     "afterSnapshot": {
-      "actual.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/actual.txt",
-        "size": 7
+      "allowed": {
+        "type": "directory",
+        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed"
       },
-      "agent-write.txt": {
+      "allowed/agent-write.txt": {
         "type": "file",
-        "path": "/sandbox/allowed/agent-write.txt",
-        "size": 18
+        "path": "/tmp/kalpang-effect-boundary-lhZjuu/allowed/agent-write.txt",
+        "size": 18,
+        "sha256": "cb2e1d483e2b9c9533240348224efd1819c1ec54e8d4fdb10298d5a207f4cd46"
       },
-      "authorized.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/authorized.txt",
-        "size": 7
-      },
-      "escaped.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/escaped.txt",
-        "size": 7
-      },
-      "other.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/other.txt",
-        "size": 7
-      },
-      "repeat.txt": {
-        "type": "file",
-        "path": "/sandbox/allowed/repeat.txt",
-        "size": 7
+      "outside": {
+        "type": "directory",
+        "path": "/tmp/kalpang-effect-boundary-lhZjuu/outside"
       }
     },
     "changedPaths": [],
