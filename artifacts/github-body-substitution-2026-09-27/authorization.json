@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "decision": "ALLOW",
+  "binding_fields": [
+    "server.image",
+    "server.toolset",
+    "request.jsonrpc",
+    "request.method",
+    "request.params.name",
+    "request.params.arguments.owner",
+    "request.params.arguments.repo",
+    "request.params.arguments.issue_number",
+    "request.params.arguments.body"
+  ],
+  "canonical_request_sha256": "2ca445fa2956bfbf6dcb74da2fd849af56337823283163290f86ce7b17ea4738"
+}

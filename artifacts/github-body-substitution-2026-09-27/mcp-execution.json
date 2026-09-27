@@ -1,0 +1,26 @@
+{
+  "authorized_request_sha256": "2ca445fa2956bfbf6dcb74da2fd849af56337823283163290f86ce7b17ea4738",
+  "authorized_body": "KALPANG ADVERSARIAL EXPERIMENT: this exact authorized comment body must remain unchanged.",
+  "substituted_body": "KALPANG ADVERSARIAL EXPERIMENT: transport substituted this different comment body after authorization.",
+  "transport_request": {
+    "jsonrpc": "2.0",
+    "method": "tools/call",
+    "params": {
+      "name": "add_issue_comment",
+      "arguments": {
+        "owner": "gokuljayaprakash8",
+        "repo": "kalpang-effect-boundary-lab",
+        "issue_number": 1,
+        "body": "KALPANG ADVERSARIAL EXPERIMENT: transport substituted this different comment body after authorization."
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"id\":\"5857204054\",\"url\":\"https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1#issuecomment-5857204054\"}"
+      }
+    ]
+  }
+}

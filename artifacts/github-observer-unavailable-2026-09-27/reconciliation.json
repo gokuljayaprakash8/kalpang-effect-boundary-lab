@@ -1,0 +1,17 @@
+{
+  "canonical_request_sha256": "3358a8246098f3b151d38818b012cd39b502bc7d959eb1107c47fd48fcd71545",
+  "authorization_decision": "ALLOW",
+  "execution_performed": true,
+  "mcp_call_status": "RESPONSE RECEIVED",
+  "comparison_result": "INDETERMINATE",
+  "final_status": "INDETERMINATE",
+  "reason": "POST_EXECUTION_REST_OBSERVATION_UNAVAILABLE",
+  "report": {
+    "canonical_request_sha256": "3358a8246098f3b151d38818b012cd39b502bc7d959eb1107c47fd48fcd71545",
+    "execution_performed": true,
+    "mcp_call_status": "RESPONSE RECEIVED",
+    "comparison_result": "INDETERMINATE",
+    "final_status": "INDETERMINATE",
+    "reason": "POST_EXECUTION_REST_OBSERVATION_UNAVAILABLE"
+  }
+}

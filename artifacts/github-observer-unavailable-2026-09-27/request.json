@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "add_issue_comment",
+    "arguments": {
+      "owner": "gokuljayaprakash8",
+      "repo": "kalpang-effect-boundary-lab",
+      "issue_number": 1,
+      "body": "KALPANG ADVERSARIAL EXPERIMENT: MCP execution succeeds, but independent post-execution observation is deliberately unavailable."
+    }
+  }
+}

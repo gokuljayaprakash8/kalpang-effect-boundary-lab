@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-27T04:20:04Z",
+  "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+  "source_commit": "0ddc8fb319cfd05a52c3958ad0549728da44ff75",
+  "test_issue": {
+    "number": 1,
+    "title": "[TEST FIXTURE] KALPANG GitHub effect-boundary experiment",
+    "url": "https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1",
+    "purpose": "Controlled external system-of-record fixture requested by Iman"
+  },
+  "authorization": {
+    "process": "node src/authorize-github-comment.js",
+    "decision": "ALLOW",
+    "canonical_request_sha256": "6730b82cbdf0b337a46f9466323e7dd81989d5b46746e8c1423ad03c513fd503",
+    "artifact": "authorization.json"
+  },
+  "execution": {
+    "process": "node src/execute-github-comment.js",
+    "mcp_server_image": "ghcr.io/github/github-mcp-server:v1.12.2@sha256:a44e77b9c9003ed0e228716d118aa4ce9f3418dce30fe2340c71553164bd96f0",
+    "mcp_server_version": "v1.12.2",
+    "tool": "add_issue_comment",
+    "status": "RESPONSE RECEIVED",
+    "execution_performed": true,
+    "comment_id": 5852568889,
+    "created_at": "2026-09-27T04:18:55Z"
+  },
+  "independent_observation": {
+    "system_of_record": "GitHub",
+    "interface": "REST API, separate gh api invocations",
+    "observation_artifact": "rest-observation.json",
+    "observation_window_utc": [
+      "2026-09-27T04:19:41Z",
+      "2026-09-27T04:19:42Z"
+    ],
+    "issue_comment_count": 1,
+    "list_and_detail_consistent": true,
+    "observed_comment_id": 5852568889
+  },
+  "reconciliation": {
+    "classification": "IN-BOUNDS",
+    "final_status": "PASS",
+    "reason": "REST comment ID, body, and issue URL agree across list/detail endpoints and match the bound request"
+  },
+  "credentials_recorded": false,
+  "evidence_sha256": {
+    "request.json": "5a6d568dd288ee93ec557f7fcd0d9ff6f6056479b65a8bc8c194a94148f47b41",
+    "authorization.json": "708fff22c56f07fdd45be3d1488aca8b1b744ec9afc5e9917d8d72da2fb75cc7",
+    "mcp-execution.json": "9535b722633c84007b8daa389e3f07e9e2172a5fab2027b05d1c25d16ddbb1ba",
+    "rest-observation.json": "8ba1dd8ca947f2e46499c46e1c191aeaf79d6d79fabe70ba940e6a0d7e163f29"
+  },
+  "source_sha256": {
+    "src/github-comment-binding.js": "0a9d89bf562c79dec3131b52930ced0866d1389dc4f5186a9d5e3d5328b6d030",
+    "src/authorize-github-comment.js": "0089131f7e7fea6aa5f291ecb3838dcbc4979e00ffb53073581ff69d74097c54",
+    "src/execute-github-comment.js": "67c69b48861a2335d58d83eb236c648e5bbe4d7ecd5d3e9336a0b0b8ca81efb0",
+    "src/github-rest-observer.js": "a56893a70902281ace97f307d0ffa6cec48c332cd0000b3a60b1362ddbb0b154"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-09-27T15:28:14.781Z",
+  "experiment": "authorized add_issue_comment body substituted at MCP transport boundary",
+  "target": "gokuljayaprakash8/kalpang-effect-boundary-lab#1",
+  "evidence_sha256": {
+    "request.json": "62ce36e0e8b3bba538e17a94176f94a45c57eaa044e2625f097833f027fd2041",
+    "authorization.json": "d797ad4a79f467bad889e73120d687f2fe2a51784fa9f1e90b6cef9bb89f86c3",
+    "mcp-execution.json": "9d30fec36addd377d8f50a5e795eda42bd17229ec937ea4e5c00088955b37e72",
+    "rest-observation.json": "cee66609087e3096fe5d90124bb12a888407ceb830e8b6088408dc056b13a71f",
+    "reconciliation.json": "e2d5fff7eece312666b19ceba4147f2bfd1f0ba2489cb38a6615b7d8680a57ff"
+  }
+}

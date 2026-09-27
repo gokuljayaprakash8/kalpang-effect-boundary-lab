@@ -6,6 +6,8 @@
   },
   "scripts": {
     "test": "node --test",
-    "reproduce": "node src/reproduce.js"
+    "reproduce": "node src/reproduce.js",
+    "authorize:github-comment": "node src/authorize-github-comment.js",
+    "execute:github-comment": "node src/execute-github-comment.js"
   }
 }

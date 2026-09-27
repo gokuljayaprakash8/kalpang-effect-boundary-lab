@@ -1,0 +1,10 @@
+{
+  "canonical_request_sha256": "6730b82cbdf0b337a46f9466323e7dd81989d5b46746e8c1423ad03c513fd503",
+  "execution_performed": true,
+  "mcp_call_status": "RESPONSE RECEIVED",
+  "comparison_result": "IN-BOUNDS",
+  "final_status": "PASS",
+  "observed_comment_id": 5852568889,
+  "server_image": "ghcr.io/github/github-mcp-server:v1.12.2@sha256:a44e77b9c9003ed0e228716d118aa4ce9f3418dce30fe2340c71553164bd96f0",
+  "server_version": "v1.12.2"
+}

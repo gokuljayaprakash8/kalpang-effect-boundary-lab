@@ -16,9 +16,14 @@ const SOURCE_FILES = [
   'docs/prior-art.md',
   'src/conformance-suite.js',
   'src/experiment.js',
+  'src/github-comment-binding.js',
+  'src/authorize-github-comment.js',
+  'src/github-rest-observer.js',
+  'src/execute-github-comment.js',
   'src/reproduce.js',
   'src/sandbox.js',
   'test/effect-boundary.test.js',
+  'test/github-comment.test.js',
 ];
 const EXPECTED_EVIDENCE_FILES = [
   'authorized-experiment.json',
@@ -168,7 +173,8 @@ const provenance = {
   known_limitations: [
     'Authorization values are harness fixture inputs; no live authorization service or agent is tested.',
     'Filesystem snapshots run in the same process trust domain and are not an independent or tamper-resistant observer.',
-    'The experiment does not implement cryptographic receipts, trusted source identity, replay protection, cross-system observation, or an INDETERMINATE lifecycle state.',
+    'The opt-in GitHub comment flow uses a separate REST observation route but the same local runner and credential trust domain; it is not an independently trusted observer.',
+    'Authorization artifacts are unsigned local files and do not establish trusted authorization identity, tamper resistance, or replay protection.',
   ],
 };
 

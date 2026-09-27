@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "add_issue_comment",
+    "arguments": {
+      "owner": "gokuljayaprakash8",
+      "repo": "kalpang-effect-boundary-lab",
+      "issue_number": 1,
+      "body": "TEST FIXTURE COMMENT - KALPANG EFFECT-BOUNDARY LIVE RUN\n\nAuthorized and executed through the pinned GitHub MCP server for issue #1 in gokuljayaprakash8/kalpang-effect-boundary-lab. This comment is the sole authorized external effect for the live experiment; GitHub REST API is used separately to verify it."
+    }
+  }
+}

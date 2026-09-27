@@ -1,0 +1,16 @@
+{
+  "observer": "GitHub REST API via existing createGitHubRestObserver path",
+  "condition": "deliberately faulted after successful MCP execution",
+  "pre_execution_observation": {
+    "available": true,
+    "comment_count": 2,
+    "observed_comment_ids": [
+      5852568889,
+      5857204054
+    ]
+  },
+  "post_execution_observation": {
+    "available": false,
+    "fault": "Deliberate experiment fault: post-execution REST list observation disabled."
+  }
+}

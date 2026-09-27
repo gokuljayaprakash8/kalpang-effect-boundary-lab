@@ -1,0 +1,14 @@
+{
+  "authorized_request_sha256": "3358a8246098f3b151d38818b012cd39b502bc7d959eb1107c47fd48fcd71545",
+  "execution_path": "existing pinned GitHub MCP path",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"id\":\"5857237724\",\"url\":\"https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1#issuecomment-5857237724\"}"
+      }
+    ]
+  },
+  "execution_performed": true,
+  "mcp_call_status": "RESPONSE RECEIVED"
+}

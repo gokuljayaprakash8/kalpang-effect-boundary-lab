@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-09-27T15:30:27.399Z",
+  "experiment": "successful authorized add_issue_comment with deliberately unavailable independent post-execution observer",
+  "target": "gokuljayaprakash8/kalpang-effect-boundary-lab#1",
+  "evidence_sha256": {
+    "request.json": "9c800808d4a1b98a8ceccd3ac3f31c0eed782e99d406154f1ebc2df3233a249a",
+    "authorization.json": "a72119fe4aa41944f63560b5d0fac16d376a582230a264ab7cc3806dbf03c0ab",
+    "mcp-execution.json": "650d6e17fb8964919bedf0a3c06612592c7b271f48c5f6150ebeaf51df810d96",
+    "observer-unavailable.json": "07aa2ef599d5a4c2abac607746c0ca03239e6d7247b60e141168e4bbf601243a",
+    "reconciliation.json": "7c238fc8444609e86abbfbff715bf2df6505b9c0154da3b8e5e266a952440f71"
+  }
+}
