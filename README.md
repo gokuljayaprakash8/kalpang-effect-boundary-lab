@@ -16,11 +16,11 @@ SEPARATE AUTHORIZATION PROCESS
 ```
 
 - **IMPLEMENTED:** The authorization script, request binding, GitHub MCP execution path, REST observer, reconciliation, and tests exist. The verified test run passed 14/14 tests. The original 11 scenarios and their 16 evidence files are preserved. `npm audit` reported 0 vulnerabilities, and the pinned official GitHub MCP server handshake was verified.
-- **LIVE EXPERIMENT:** One `add_issue_comment` action was executed and independently observed on the controlled GitHub fixture issue. See [artifacts/github-live-2026-09-27/](artifacts/github-live-2026-09-27/).
+- **LIVE EXPERIMENT:** Three `add_issue_comment` actions were executed and evaluated on the controlled GitHub fixture issue: one `IN-BOUNDS`, one `DIVERGENT` after body substitution, and one `INDETERMINATE` when post-execution observation was unavailable. See the [live evidence directories](#live-github-experiment).
 - **PRODUCTION:** Not established.
 - **INDEPENDENT TRUST:** Not established. The authorizer and executor are separate local processes but share the host/GitHub credential trust domain; the authorization artifact is unsigned.
 
-The tested GitHub flow returns `INDETERMINATE` for missing/unavailable or conflicting REST observations. These results describe this experiment, not production certification or a general security guarantee.
+The tested GitHub flow demonstrates `IN-BOUNDS`, `DIVERGENT`, and `INDETERMINATE` behaviors under the conditions recorded in the live evidence. These results describe this experiment, not production certification or a general security guarantee.
 
 ## Experiment
 
@@ -46,7 +46,7 @@ npm run reproduce
 
 The checked-in evidence from the current reproduction records 10 core cases plus one deliberate sentinel: 11 scenarios total. The core results are 2 `IN-BOUNDS`, 6 `DIVERGENT`, and 2 `DENIED / NOT EXECUTED`. The sentinel is an additional `DIVERGENT` result, so there are 7 divergences across all 11 scenarios. No core case has an allowed execution with no observed effect. The automated test suite has 5 top-level tests; the reproduction runner reports their pass/fail totals separately from scenario classifications.
 
-These counts are generated from the measured results, not fixed summary values. `conformance-suite-summary.json` stores the per-case classifications and computed counts; `run-provenance.json` records those counts and SHA-256 digests for source files and evidence JSON. The original evidence set contains 16 JSON files hashed by the provenance record, plus the provenance file itself; those original artifacts are preserved. The separate live GitHub run has its own request, authorization, execution, observation, and provenance records under `artifacts/github-live-2026-09-27/`.
+These counts are generated from the measured results, not fixed summary values. `conformance-suite-summary.json` stores the per-case classifications and computed counts; `run-provenance.json` records those counts and SHA-256 digests for source files and evidence JSON. The original evidence set contains 16 JSON files hashed by the provenance record, plus the provenance file itself; those original artifacts are preserved. The three separate live GitHub runs have their own request, authorization, execution, observation, reconciliation, and provenance records under `artifacts/github-live-2026-09-27/`, `artifacts/github-body-substitution-2026-09-27/`, and `artifacts/github-observer-unavailable-2026-09-27/`.
 
 ## Classifications
 
@@ -61,9 +61,9 @@ These counts are generated from the measured results, not fixed summary values. 
 
 ## Live GitHub Experiment
 
-On September 27, 2026, one live GitHub experiment was run against the canonical repository, `gokuljayaprakash8/kalpang-effect-boundary-lab`, using controlled fixture issue [#1](https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1). Exactly one authorized `add_issue_comment` MCP operation was executed through the pinned official GitHub MCP server v1.12.2. MCP returned comment ID `5852568889`.
+On September 27, 2026, three live GitHub experiments were run against the canonical repository, `gokuljayaprakash8/kalpang-effect-boundary-lab`, using controlled fixture issue [#1](https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1). Each used an authorized `add_issue_comment` MCP operation through the pinned official GitHub MCP server v1.12.2.
 
-The resulting state was queried separately through GitHub REST: the issue-comment collection and comment-detail endpoint agreed on comment ID, body, and issue URL, and the issue contained exactly one comment. Reconciliation was `IN-BOUNDS / PASS`. MCP success output alone is not treated as authoritative observation.
+The original run's resulting state was queried separately through GitHub REST: the issue-comment collection and comment-detail endpoint agreed on comment ID, body, and issue URL, and the issue contained exactly one comment. Reconciliation was `IN-BOUNDS / PASS`. MCP success output alone is not treated as authoritative observation.
 
 The live records are in `artifacts/github-live-2026-09-27/`:
 
@@ -72,6 +72,30 @@ The live records are in `artifacts/github-live-2026-09-27/`:
 - [mcp-execution.json](artifacts/github-live-2026-09-27/mcp-execution.json): sanitized execution status, server version, and comment ID.
 - [rest-observation.json](artifacts/github-live-2026-09-27/rest-observation.json): independent REST collection and detail observations.
 - [provenance.json](artifacts/github-live-2026-09-27/provenance.json): source/evidence hashes, run identifiers, observation window, and reconciliation.
+
+The body-substitution vector is recorded in [artifacts/github-body-substitution-2026-09-27/](artifacts/github-body-substitution-2026-09-27/). Authorization was bound to the original request and body, but the MCP transport substituted the comment body. Independent REST observation confirmed the substituted external effect, so reconciliation was `DIVERGENT`.
+
+Its relevant evidence files are:
+
+- [request.json](artifacts/github-body-substitution-2026-09-27/request.json): original authorized MCP request, without credentials.
+- [authorization.json](artifacts/github-body-substitution-2026-09-27/authorization.json): authorization bound to the original request/body.
+- [mcp-execution.json](artifacts/github-body-substitution-2026-09-27/mcp-execution.json): sanitized execution result showing the transport substitution.
+- [rest-observation.json](artifacts/github-body-substitution-2026-09-27/rest-observation.json): independent REST observation of the resulting comment.
+- [reconciliation.json](artifacts/github-body-substitution-2026-09-27/reconciliation.json): final `DIVERGENT` classification.
+- [provenance.json](artifacts/github-body-substitution-2026-09-27/provenance.json): source/evidence hashes and run metadata.
+
+The observer-unavailable vector is recorded in [artifacts/github-observer-unavailable-2026-09-27/](artifacts/github-observer-unavailable-2026-09-27/). Authorization was `ALLOW`, MCP execution succeeded, and post-execution independent REST observation was deliberately unavailable. Reconciliation was `INDETERMINATE` with reason `POST_EXECUTION_REST_OBSERVATION_UNAVAILABLE`.
+
+Its relevant evidence files are:
+
+- [request.json](artifacts/github-observer-unavailable-2026-09-27/request.json): authorized MCP request, without credentials.
+- [authorization.json](artifacts/github-observer-unavailable-2026-09-27/authorization.json): persisted `ALLOW` authorization.
+- [mcp-execution.json](artifacts/github-observer-unavailable-2026-09-27/mcp-execution.json): sanitized successful MCP execution result.
+- [observer-unavailable.json](artifacts/github-observer-unavailable-2026-09-27/observer-unavailable.json): recorded unavailability of the post-execution observer.
+- [reconciliation.json](artifacts/github-observer-unavailable-2026-09-27/reconciliation.json): final `INDETERMINATE` classification and reason.
+- [provenance.json](artifacts/github-observer-unavailable-2026-09-27/provenance.json): source/evidence hashes and run metadata.
+
+These three classifications are experimentally demonstrated behaviors under the tested conditions, not a general security guarantee.
 
 The filesystem scenarios remain unchanged. The GitHub path is opt-in and is not run by `npm test` or `npm run reproduce`; it requires Docker, network access, and GitHub comment permission. Re-running it creates another external comment, so use it only with an explicitly authorized request.
 
@@ -148,4 +172,4 @@ SVP Kernel is a separate research lineage exploring semantic validation and runt
 
 ## Current Result
 
-The original filesystem scenarios demonstrate that, in those local cases, a write to a different path can be detected by comparing same-environment snapshots with the fixture-authorized path. The live GitHub run demonstrates one real issue-comment effect reconciled against separate REST observations. Neither result proves a general security property, production readiness, or that outcome verification is novel. Any future assessment would need to establish customer-relevant scope and the trustworthiness of its authorization and observation sources.
+The original filesystem scenarios demonstrate that, in those local cases, a write to a different path can be detected by comparing same-environment snapshots with the fixture-authorized path. The live GitHub runs demonstrate one real issue-comment effect reconciled as `IN-BOUNDS`, one body-substituted effect reconciled as `DIVERGENT`, and one successful execution whose unavailable post-execution observation resulted in `INDETERMINATE`. Neither result proves a general security property, production readiness, or that outcome verification is novel. Any future assessment would need to establish customer-relevant scope and the trustworthiness of its authorization and observation sources.
