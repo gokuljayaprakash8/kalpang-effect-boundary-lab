@@ -30,6 +30,52 @@ The observer records before/after snapshots of a private temporary filesystem tr
 
 The experiment asks whether the observed path matches the one fixture-authorized path. It does not test an authorization service or prove that a denied decision was correct.
 
+## Offline GitHub Comparison Fixture
+
+`src/run-github-comparison.js` is an **offline comparison fixture/runner** for evaluating admission separately from downstream effect observation around one canonical GitHub `add_issue_comment` request. It uses in-memory execution and observer stand-ins. Its output is a comparison artifact, not live GitHub evidence; the runner has not been pinned to another Gate implementation, and this comparison does not establish downstream equivalence.
+
+The same deeply frozen canonical request is used in all three cases:
+
+```json
+{
+	"jsonrpc": "2.0",
+	"method": "tools/call",
+	"params": {
+		"name": "add_issue_comment",
+		"arguments": {
+			"owner": "gokuljayaprakash8",
+			"repo": "kalpang-effect-boundary-lab",
+			"issue_number": 1,
+			"body": "KALPANG controlled comparison: this exact approved comment body is frozen."
+		}
+	}
+}
+```
+
+The authorization digest for this exact frozen canonical request is `fb95e7fefd718922a1af792cbcd6e0348ee4fea48b9d834a0ced25b3a6cd1b03`.
+
+The comparison records **admission** and **effect observation** as separate dimensions. Admission says whether the request passed the authorization binding at the Gate boundary; effect observation says what the independent observer establishes about the downstream effect. These results must not be collapsed into one classification.
+
+- **Case A — body mutation before Gate admission:** `admission = REFUSED`; no downstream execution occurs. This represents prevention before admission. The simulated observer reports `INDETERMINATE` (`NO_NEW_COMMENT_OBSERVED`), not a live observation of GitHub state.
+- **Case B — body mutation after admission but before the GitHub boundary:** `admission = ADMITTED`. If the substituted body reaches the simulated downstream boundary and is independently observed, `effect_observation = DIVERGENT` and `integration_prevention_failure = true`. This is an integration/prevention failure, not successful prevention; it distinguishes admission correctness from downstream/integration integrity.
+- **Case C — observer unavailable:** `admission = ADMITTED`; `effect_observation = INDETERMINATE`. Missing observation is not proof of either conformity or divergence.
+
+The runner operates offline and makes no live GitHub, API, or network calls. It must not write into existing evidence directories. Before writing, it compares canonical/resolved output and protected paths, including symlink-based aliases, and rejects output under these protected directories:
+
+- `artifacts/github-live-2026-09-27/`
+- `artifacts/github-body-substitution-2026-09-27/`
+- `artifacts/github-observer-unavailable-2026-09-27/`
+
+From the repository root, run:
+
+```bash
+node "src/run-github-comparison.js" artifacts/github-comparison-2026-09-28-01
+```
+
+This writes `request.json`, `authorization.json`, and `comparison.json` in the new output directory. It does not validate a live GitHub effect. The root-relative `src/` path is required because the runner file is located at `src/run-github-comparison.js`.
+
+The focused validation command is `node --test test/github-comparison-runner.test.js`; its current result is **4 passed, 0 failed**. The runner is suitable as a reusable offline fixture/reference for comparing another Gate implementation against this same frozen request and these expected semantic cases. It has not been pinned to Iman's Gate implementation, and no live three-case GitHub comparison has been executed with this runner.
+
 ## Reproduce
 
 From the repository root, run the canonical path:
