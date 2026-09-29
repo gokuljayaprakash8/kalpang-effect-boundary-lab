@@ -66,6 +66,12 @@ The runner operates offline and makes no live GitHub, API, or network calls. It 
 - `artifacts/github-body-substitution-2026-09-27/`
 - `artifacts/github-observer-unavailable-2026-09-27/`
 
+### Downstream Mutation Prevention Test
+
+The focused test `test/github-comment.test.js` admits the frozen canonical request using its authorization digest, then has the downstream handler construct a replacement request with a changed body and pass it to a local test sink. The sink is invoked with that mutated body. This establishes **NOT PREVENTED** for this test: the current authorization boundary does not revalidate the replacement request at the final side-effect boundary. The current authorization check binds the canonical request at admission but does not enforce that same binding at the final downstream side-effect boundary.
+
+This is a local, synthetic sink test; it did not perform a GitHub mutation and does not establish behavior beyond this tested path. REST observation in other experiments is detection and reconciliation after execution, not prevention.
+
 From the repository root, run:
 
 ```bash

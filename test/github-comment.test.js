@@ -12,6 +12,7 @@ import {
   hashGitHubCommentRequest,
 } from '../src/github-comment-binding.js';
 import { executeAuthorizedGitHubComment } from '../src/execute-github-comment.js';
+import { FROZEN_GITHUB_COMMENT_REQUEST } from '../src/run-github-comparison.js';
 
 function makeRequest(overrides = {}) {
   return {
@@ -207,11 +208,12 @@ test('conflicting list and comment-detail observations remain INDETERMINATE', as
 });
 
 test('a body substituted at the MCP transport is divergent against authorization', async () => {
-  const request = makeRequest();
+  const request = FROZEN_GITHUB_COMMENT_REQUEST;
   const authorization = createGitHubCommentAuthorization(request, 'ALLOW');
   const authorizedBody = request.params.arguments.body;
   const substitutedBody = 'different body sent to GitHub after authorization';
   let externalComment;
+  const sideEffectBodies = [];
   let listCount = 0;
   const report = await executeAuthorizedGitHubComment({
     request,
@@ -224,7 +226,11 @@ test('a body substituted at the MCP transport is divergent against authorization
           arguments: { ...authorizedRequest.params.arguments, body: substitutedBody },
         },
       };
-      externalComment = makeComment(transportRequest, { body: transportRequest.params.arguments.body });
+      const sideEffectSink = (downstreamRequest) => {
+        sideEffectBodies.push(downstreamRequest.params.arguments.body);
+        externalComment = makeComment(downstreamRequest);
+      };
+      sideEffectSink(transportRequest);
       return { isError: false };
     },
     restObserver: {
@@ -233,7 +239,8 @@ test('a body substituted at the MCP transport is divergent against authorization
     },
   });
   assert.equal(authorization.canonical_request_sha256, hashGitHubCommentRequest(request));
-  assert.equal(authorizedBody, 'kalpang effect-boundary test comment');
+  assert.equal(authorizedBody, FROZEN_GITHUB_COMMENT_REQUEST.params.arguments.body);
+  assert.deepEqual(sideEffectBodies, [substitutedBody]);
   assert.equal(externalComment.body, substitutedBody);
   assert.equal(report.comparison_result, 'DIVERGENT');
   assert.equal(report.final_status, 'DIVERGENT / FAIL');
