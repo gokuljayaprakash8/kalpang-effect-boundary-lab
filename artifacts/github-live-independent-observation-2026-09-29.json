@@ -1,0 +1,123 @@
+{
+  "timestamp": "2026-09-29T11:07:34.279Z",
+  "approved_request": {
+    "jsonrpc": "2.0",
+    "method": "tools/call",
+    "params": {
+      "name": "add_issue_comment",
+      "arguments": {
+        "owner": "gokuljayaprakash8",
+        "repo": "kalpang-effect-boundary-lab",
+        "issue_number": 1,
+        "body": "KALPANG independent REST observation validation 2026-09-29T11:07:34.279Z: harmless test comment."
+      }
+    }
+  },
+  "approved_request_digest": "75ca380c806511689c107f137caba05de61236fea6c06a68e289238cf4953879",
+  "authorized_action": {
+    "action": "add_issue_comment",
+    "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+    "issue_number": 1,
+    "body": "KALPANG independent REST observation validation 2026-09-29T11:07:34.279Z: harmless test comment.",
+    "visibility": "public issue comment"
+  },
+  "authorization": {
+    "decision": "ALLOW",
+    "canonical_request_sha256": "75ca380c806511689c107f137caba05de61236fea6c06a68e289238cf4953879",
+    "source": "Existing authorize-github-comment.js process; ALLOW supplied by the explicit experiment request",
+    "artifact_signed": false
+  },
+  "execution": {
+    "attempted": true,
+    "identity_source": "GITHUB_TOKEN environment variable; value omitted",
+    "final_request": {
+      "jsonrpc": "2.0",
+      "method": "tools/call",
+      "params": {
+        "name": "add_issue_comment",
+        "arguments": {
+          "owner": "gokuljayaprakash8",
+          "repo": "kalpang-effect-boundary-lab",
+          "issue_number": 1,
+          "body": "KALPANG independent REST observation validation 2026-09-29T11:07:34.279Z: harmless test comment."
+        }
+      }
+    },
+    "final_request_sha256": "75ca380c806511689c107f137caba05de61236fea6c06a68e289238cf4953879",
+    "mcp_result": {
+      "is_error": false,
+      "comment_id": "5889000215",
+      "url": "https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1#issuecomment-5889000215"
+    },
+    "report": {
+      "canonical_request_sha256": "75ca380c806511689c107f137caba05de61236fea6c06a68e289238cf4953879",
+      "execution_performed": true,
+      "mcp_call_status": "RESPONSE RECEIVED",
+      "comparison_result": "INDETERMINATE",
+      "final_status": "INDETERMINATE",
+      "reason": "NO_NEW_COMMENT_OBSERVED"
+    }
+  },
+  "provider": "GitHub",
+  "provider_effect_identifier": {
+    "mcp_comment_id": "5889000215",
+    "rest_comment_id": null
+  },
+  "independent_observation": {
+    "path": "Unauthenticated, read-only GitHub REST API GETs for issue metadata, issue comments, and comment detail",
+    "authorization_header_sent": false,
+    "observer_requests": [
+      {
+        "method": "GET",
+        "path": "/repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1",
+        "authorization_header_sent": false
+      },
+      {
+        "method": "GET",
+        "path": "/repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1/comments?sort=created&direction=desc&per_page=100",
+        "authorization_header_sent": false
+      },
+      {
+        "method": "GET",
+        "path": "/repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1/comments?sort=created&direction=desc&per_page=100",
+        "authorization_header_sent": false
+      }
+    ],
+    "issue_state_before_execution": "open",
+    "comments_before": [
+      5852568889,
+      5857204054,
+      5857237724
+    ],
+    "comments_after": [
+      5852568889,
+      5857204054,
+      5857237724
+    ],
+    "observed_effect": null
+  },
+  "correlation": {
+    "approved_request_digest": "75ca380c806511689c107f137caba05de61236fea6c06a68e289238cf4953879",
+    "authorization_digest_matches": true,
+    "authorized_action_matches_request": true,
+    "exactly_one_new_rest_comment": false,
+    "mcp_and_rest_comment_ids_match": false,
+    "observed_repository_and_issue_match": false,
+    "observed_body_matches_approved_body": false
+  },
+  "reconciliation_result": "INDETERMINATE",
+  "observer_identity_separation": {
+    "execution_credential_source": "GITHUB_TOKEN environment variable",
+    "observer_credential": "none; public unauthenticated REST reads",
+    "separate_credentials_and_api_path": true,
+    "same_host": true,
+    "same_provider": true,
+    "separate_trust_domain_established": false
+  },
+  "limitations": [
+    "The authorization artifact is unsigned and produced on the same host as execution.",
+    "The observer uses no execution credential and reads provider state through REST, but shares the host and GitHub provider trust domain.",
+    "One successful comment does not establish universal provider correctness, execution integrity, or semantic correctness.",
+    "No provider fault is induced or claimed."
+  ]
+}
