@@ -72,6 +72,14 @@ The focused test `test/github-comment.test.js` admits the frozen canonical reque
 
 This is a local, synthetic sink test; it did not perform a GitHub mutation and does not establish behavior beyond this tested path. REST observation in other experiments is detection and reconciliation after execution, not prevention.
 
+### Provider Materialization Integrity Test
+
+The focused local comparison also demonstrates that final-conduit validation can prevent a post-admission request mutation from reaching the tested sink. That validation establishes the request presented at the conduit, not necessarily the state later materialized by a provider.
+
+In the synthetic provider-fault condition, the exact validated request is accepted successfully, but the provider simulator materializes the comment on issue 2 instead of approved issue 1. A separate state-reading path detects the mismatch as `DIVERGENT`. This is a counterexample to the sufficiency of final-conduit validation for externally observable effect integrity, and demonstrates in this synthetic model that request/execution integrity and externally observable effect integrity are distinct properties.
+
+The observer reads local in-process state and does not establish a separate trust boundary. This experiment does not establish that GitHub or any other real provider exhibits this fault. Further real-provider and separate-observer validation is still required. It supports the hypothesis that independent effect reconciliation can provide an assurance signal not contained in admission or final-request records alone; it does not establish that SVP is the only mechanism capable of providing that signal.
+
 From the repository root, run:
 
 ```bash

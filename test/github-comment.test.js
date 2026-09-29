@@ -245,3 +245,255 @@ test('a body substituted at the MCP transport is divergent against authorization
   assert.equal(report.comparison_result, 'DIVERGENT');
   assert.equal(report.final_status, 'DIVERGENT / FAIL');
 });
+
+test('four-condition local comparison separates admission, execution, and observed effect', async () => {
+  const request = FROZEN_GITHUB_COMMENT_REQUEST;
+  const authorization = createGitHubCommentAuthorization(request, 'ALLOW');
+  const approvedEffect = effectFromRequest(request);
+  const mutatedBody = 'downstream-only local test mutation';
+
+  function effectFromRequest(value) {
+    return {
+      action: value.params.name,
+      ...value.params.arguments,
+    };
+  }
+
+  function requestWithBody(value, body) {
+    return {
+      ...value,
+      params: {
+        ...value.params,
+        arguments: { ...value.params.arguments, body },
+      },
+    };
+  }
+
+  function invokeLocalSideEffectSink(effect, sinkState, executionEvidence) {
+    executionEvidence.sink_executed = true;
+    executionEvidence.final_request = { ...effect };
+    sinkState.push({ ...effect });
+  }
+
+  async function runCondition({ mutate, enforceAtSink }) {
+    const sinkState = [];
+    const evidence = {
+      approved_semantic_effect: { ...approvedEffect },
+      admission: { result: 'NOT REACHED', authorized_request_sha256: authorization.canonical_request_sha256 },
+      final_boundary: { decision: 'NOT REACHED', presented_effect: null },
+      execution: { sink_executed: false, final_request: null },
+      observation: {
+        source: 'separate local sink-state reader; does not read authorization or execution records',
+        observed_state: null,
+        actual_effect: null,
+        reconciliation_result: 'INDETERMINATE',
+        existing_pipeline_reconciliation_result: null,
+      },
+    };
+
+    function sinkComment(effect) {
+      return {
+        id: 1,
+        body: effect.body,
+        issue_url: `https://api.github.com/repos/${effect.owner}/${effect.repo}/issues/${effect.issue_number}`,
+      };
+    }
+
+    const restObserver = {
+      async listIssueComments() {
+        return sinkState.map(sinkComment);
+      },
+      async getComment(_request, commentId) {
+        return sinkState.map(sinkComment).find((comment) => comment.id === commentId) ?? null;
+      },
+    };
+
+    const independentObserver = {
+      async readState() {
+        return sinkState.map((effect) => ({ ...effect }));
+      },
+    };
+
+    const executionReport = await executeAuthorizedGitHubComment({
+      request,
+      authorization,
+      async mcpCall(admittedRequest) {
+        evidence.admission.result = 'ADMITTED';
+        evidence.admission.presented_request_sha256 = hashGitHubCommentRequest(admittedRequest);
+        const downstreamRequest = mutate ? requestWithBody(admittedRequest, mutatedBody) : admittedRequest;
+        const presentedEffect = effectFromRequest(downstreamRequest);
+        evidence.final_boundary.presented_effect = presentedEffect;
+
+        if (enforceAtSink) {
+          try {
+            assertGitHubCommentAuthorization(downstreamRequest, authorization);
+            evidence.final_boundary.decision = 'ACCEPTED';
+          } catch (error) {
+            evidence.final_boundary.decision = 'REJECTED';
+            throw error;
+          }
+        } else {
+          evidence.final_boundary.decision = 'NOT REVALIDATED';
+        }
+
+        invokeLocalSideEffectSink(presentedEffect, sinkState, evidence.execution);
+        return { isError: false };
+      },
+      restObserver,
+    });
+
+    evidence.observation.existing_pipeline_reconciliation_result = executionReport.comparison_result;
+    evidence.observation.observed_state = await independentObserver.readState();
+    if (evidence.observation.observed_state.length === 1) {
+      evidence.observation.actual_effect = { ...evidence.observation.observed_state[0] };
+      evidence.observation.reconciliation_result = JSON.stringify(evidence.observation.observed_state[0])
+        === JSON.stringify(approvedEffect) ? 'IN-BOUNDS' : 'DIVERGENT';
+    }
+    return evidence;
+  }
+
+  const currentBoundary = await runCondition({ mutate: true, enforceAtSink: false });
+  const enforcedMutation = await runCondition({ mutate: true, enforceAtSink: true });
+  const enforcedObserved = await runCondition({ mutate: false, enforceAtSink: true });
+  const falsificationAttempt = await runCondition({ mutate: false, enforceAtSink: true });
+
+  assert.equal(authorization.canonical_request_sha256, hashGitHubCommentRequest(request));
+
+  assert.equal(currentBoundary.admission.result, 'ADMITTED');
+  assert.equal(currentBoundary.admission.presented_request_sha256, authorization.canonical_request_sha256);
+  assert.equal(currentBoundary.final_boundary.decision, 'NOT REVALIDATED');
+  assert.equal(currentBoundary.execution.sink_executed, true);
+  assert.equal(currentBoundary.execution.final_request.body, mutatedBody);
+  assert.equal(currentBoundary.observation.actual_effect.body, mutatedBody);
+  assert.equal(currentBoundary.observation.reconciliation_result, 'DIVERGENT');
+
+  assert.equal(enforcedMutation.admission.result, 'ADMITTED');
+  assert.equal(enforcedMutation.admission.presented_request_sha256, authorization.canonical_request_sha256);
+  assert.equal(enforcedMutation.final_boundary.decision, 'REJECTED');
+  assert.equal(enforcedMutation.final_boundary.presented_effect.body, mutatedBody);
+  assert.equal(enforcedMutation.execution.sink_executed, false);
+  assert.equal(enforcedMutation.observation.actual_effect, null);
+  assert.equal(enforcedMutation.observation.reconciliation_result, 'INDETERMINATE');
+
+  for (const condition of [enforcedObserved, falsificationAttempt]) {
+    assert.equal(condition.admission.result, 'ADMITTED');
+    assert.equal(condition.admission.presented_request_sha256, authorization.canonical_request_sha256);
+    assert.equal(condition.final_boundary.decision, 'ACCEPTED');
+    assert.equal(condition.execution.sink_executed, true);
+    assert.deepEqual(condition.execution.final_request, approvedEffect);
+    assert.deepEqual(condition.observation.observed_state, [approvedEffect]);
+    assert.deepEqual(condition.observation.actual_effect, approvedEffect);
+    assert.equal(condition.observation.reconciliation_result, 'IN-BOUNDS');
+  }
+  assert.equal(falsificationAttempt.observation.existing_pipeline_reconciliation_result, 'IN-BOUNDS');
+});
+
+test('successful final-conduit validation does not guarantee matching provider state', async () => {
+  const request = FROZEN_GITHUB_COMMENT_REQUEST;
+  const authorization = createGitHubCommentAuthorization(request, 'ALLOW');
+  const approvedEffect = {
+    action: request.params.name,
+    ...request.params.arguments,
+  };
+  const providerState = [];
+  const evidence = {
+    admission: { result: 'NOT REACHED', approved_semantic_effect: approvedEffect },
+    execution: {
+      result: 'NOT EXECUTED',
+      final_boundary_decision: 'NOT REACHED',
+      final_request: null,
+      final_request_sha256: null,
+      conduit_executed: false,
+      provider_response: null,
+    },
+    observation: {
+      source: 'local full-state reader; reads providerState, not authorization or execution records',
+      observed_effects: null,
+      result: 'INDETERMINATE',
+      existing_issue_scoped_report: null,
+    },
+  };
+
+  const providerSimulator = {
+    async apply(validatedRequest) {
+      const acceptedEffect = {
+        action: validatedRequest.params.name,
+        ...validatedRequest.params.arguments,
+      };
+      providerState.push({ ...acceptedEffect, issue_number: acceptedEffect.issue_number + 1 });
+      return { isError: false };
+    },
+  };
+
+  function commentsForRequest(value) {
+    const { owner, repo, issue_number: issueNumber } = value.params.arguments;
+    return providerState
+      .filter((effect) => effect.owner === owner && effect.repo === repo && effect.issue_number === issueNumber)
+      .map((effect, index) => ({
+        id: index + 1,
+        body: effect.body,
+        issue_url: `https://api.github.com/repos/${owner}/${repo}/issues/${issueNumber}`,
+      }));
+  }
+
+  const restObserver = {
+    async listIssueComments(value) {
+      return commentsForRequest(value);
+    },
+    async getComment(value, commentId) {
+      return commentsForRequest(value).find((comment) => comment.id === commentId) ?? null;
+    },
+  };
+
+  async function finalConduit(validatedRequest) {
+    assert.equal(assertGitHubCommentAuthorization(validatedRequest, authorization), 'ALLOW');
+    evidence.execution.final_boundary_decision = 'ACCEPTED';
+    evidence.execution.final_request = {
+      action: validatedRequest.params.name,
+      ...validatedRequest.params.arguments,
+    };
+    evidence.execution.final_request_sha256 = hashGitHubCommentRequest(validatedRequest);
+    evidence.execution.result = JSON.stringify(evidence.execution.final_request) === JSON.stringify(approvedEffect)
+      ? 'IN-BOUNDS' : 'DIVERGENT';
+    evidence.execution.conduit_executed = true;
+    const response = await providerSimulator.apply(validatedRequest);
+    evidence.execution.provider_response = response.isError ? 'ERROR' : 'SUCCESS';
+    return response;
+  }
+
+  const executionReport = await executeAuthorizedGitHubComment({
+    request,
+    authorization,
+    async mcpCall(admittedRequest) {
+      evidence.admission.result = 'IN-BOUNDS';
+      evidence.admission.authorized_request_sha256 = authorization.canonical_request_sha256;
+      evidence.admission.presented_request_sha256 = hashGitHubCommentRequest(admittedRequest);
+      return finalConduit(admittedRequest);
+    },
+    restObserver,
+  });
+
+  const independentObserver = {
+    async readAllEffects() {
+      return providerState.map((effect) => ({ ...effect }));
+    },
+  };
+  evidence.observation.observed_effects = await independentObserver.readAllEffects();
+  evidence.observation.existing_issue_scoped_report = executionReport.comparison_result;
+  if (evidence.observation.observed_effects.length === 1) {
+    evidence.observation.result = JSON.stringify(evidence.observation.observed_effects[0])
+      === JSON.stringify(approvedEffect) ? 'IN-BOUNDS' : 'DIVERGENT';
+  }
+
+  assert.equal(evidence.admission.result, 'IN-BOUNDS');
+  assert.equal(evidence.admission.presented_request_sha256, authorization.canonical_request_sha256);
+  assert.equal(evidence.execution.final_boundary_decision, 'ACCEPTED');
+  assert.equal(evidence.execution.final_request_sha256, authorization.canonical_request_sha256);
+  assert.deepEqual(evidence.execution.final_request, approvedEffect);
+  assert.equal(evidence.execution.result, 'IN-BOUNDS');
+  assert.equal(evidence.execution.conduit_executed, true);
+  assert.equal(evidence.execution.provider_response, 'SUCCESS');
+  assert.deepEqual(evidence.observation.observed_effects, [{ ...approvedEffect, issue_number: approvedEffect.issue_number + 1 }]);
+  assert.equal(evidence.observation.result, 'DIVERGENT');
+  assert.equal(evidence.observation.existing_issue_scoped_report, 'INDETERMINATE');
+});
