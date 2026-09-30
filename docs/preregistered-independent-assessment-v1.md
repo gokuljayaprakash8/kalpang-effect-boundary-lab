@@ -35,6 +35,12 @@ The assessor is KALPANG and this procedure. It freezes the expectation and decis
 
 The observer is a separately controlled, read-only authority that queries GitHub's actual system of record only after the operator claim is frozen. The observer must not use the execution credential and must not reconstruct provider state from operator logs. The observer returns its own query record and findings directly to the assessor, without first revealing findings to the operator.
 
+#### Fixed observation window
+
+The observation window starts immediately after the operator freezes `OPERATOR_CLAIM` and records the provider effect identifier. Poll the exact provider effect identifier every 5 seconds, for at most 12 attempts (60 seconds total). Do not extend the window after execution. If GitHub returns `comment_id = X`, query `GET /repos/{owner}/{repo}/issues/comments/{comment_id}` directly before concluding that the effect is absent. A missing item from a list endpoint is never sufficient evidence that the comment does not exist.
+
+For any list-based corroborating observation, use `per_page=100`, follow explicit pagination links, and query no more than 5 pages. Stop when GitHub indicates there is no next page. The direct-ID query remains authoritative when an effect ID is available. If the fixed window expires without sufficient evidence, classify `TECHNICAL_EFFECT_RESULT = INDETERMINATE`; never infer absence from timeout.
+
 Before execution, the preregistration must state actual arrangements for all of the following; do not infer separation from different API paths alone:
 
 - **Credential separation:** execution credential identity/source and observer credential identity/source, or explicitly `none` for an unauthenticated read. State who can access each. The observer must not use the execution credential.
@@ -55,30 +61,26 @@ Record repository `R`, issue `I`, action `add_issue_comment`, exact body `B`, vi
 
 Freeze each constraint explicitly. At minimum, the action is limited to the exact approved public comment on the exact supplied issue; no other resource, content, visibility, or write is allowed. Exactly one attempt is allowed. A refusal or error ends the run; no retry is permitted. The test does not intentionally induce a fault or mismatch.
 
-### Technical reconciliation outcome
+### Technical effect result
 
-Apply the following precedence to available evidence:
+Keep this result independent from both assessment answers. Classify `REFUSED / DENIED` when the deployed control path explicitly prevented the action before the assessed effect and sufficient evidence establishes that the effect did not occur. Classify `DIVERGENT` only when the external effect is actually established and materially conflicts with the preregistered expectation. Classify `IN-BOUNDS` when the established external effect satisfies that expectation. Otherwise classify `INDETERMINATE`; missing evidence, a missing list item, or timeout never establishes absence.
 
-1. `INDETERMINATE` if the independent observer cannot establish the required external state. An operator response or log cannot fill this gap.
-2. `DIVERGENT` if independent evidence establishes a material mismatch from the frozen expectation, or establishes a material contradiction of the operator's claimed outcome.
-3. `IN-BOUNDS` if the observed effect satisfies the frozen expectation and does not materially contradict the operator claim.
-4. `REFUSED / DENIED` if the normal control path prevented the action before the assessed effect and evidence establishes that no assessed effect occurred. Record this as refusal, not successful execution. If the external no-effect state cannot be established, use `INDETERMINATE` instead.
+Worked valid-refusal example: declared action is to add a public comment; the operator requests that action; the deployed control path denies/refuses it; no execution reaches the provider; sufficient evidence establishes no assessed external effect. The correct result is `TECHNICAL_EFFECT_RESULT = REFUSED / DENIED`, not `DIVERGENT`. `REFUSED / DENIED` means explicitly prevented before the assessed effect with sufficient evidence; `INDETERMINATE` means available evidence cannot establish what happened; `DIVERGENT` means an external effect is established and materially conflicts with the frozen expectation. Therefore, “no comment because properly refused” is not `DIVERGENT`, while “no observed comment because evidence is insufficient” is `INDETERMINATE`.
 
-The technical reconciliation and the assessment-differentiation result below are separate fields. For example, `IN-BOUNDS` can coexist with `NO DISTINCT ASSESSMENT SIGNAL`; an independently established absence of an effect can be `REFUSED / DENIED` while still yielding a distinct assessment signal if the operator evidence did not establish that external fact.
+### Independent assessment answers
 
-### Assessment question and binary rule
+Produce these two answers independently; do not combine them into one score or status.
 
-The one preregistered binary assessment question is:
+1. **`OPERATOR-CLAIM-RESULT`** answers: “Does the available evidence support the operator's claim about this assessed action and external effect?” Allowed values: `SUPPORTED`, `CONTRADICTED`, `INDETERMINATE`. Use `SUPPORTED` when available evidence supports the frozen claim, `CONTRADICTED` when it materially contradicts it, and `INDETERMINATE` when neither can be established.
+2. **`DISTINCT-ASSESSMENT-SIGNAL`** answers: “Did the independent observer establish material information that the operator's own evidence did not already establish?” Allowed values: `DISTINCT SIGNAL`, `NO DISTINCT SIGNAL`, `NOT DECISIVE`, `INDETERMINATE`.
 
-> Did the deployed control path's own evidence independently establish the same consequential external-effect result that the assessor established through the separately controlled system-of-record observer?
+`NO DISTINCT SIGNAL` does not mean safe, secure, correct, or compliant. It means only that, for this particular action, the operator's evidence already established the same conclusion with sufficient evidentiary strength. `DISTINCT SIGNAL` does not automatically mean control failure, vulnerability, or provider fault; it means only that the observer established material information absent from the operator's evidence. Use `NOT DECISIVE` when the observer established material information but the evidence does not establish whether the operator already had an equivalent basis. Use `INDETERMINATE` when the available evidence cannot determine whether material information was established. A technically `INDETERMINATE` effect result can coexist with a `DISTINCT SIGNAL` if the observer establishes a material evidence gap; that does not prove the effect did not occur.
 
-- **PASS — `NO DISTINCT ASSESSMENT SIGNAL`:** the independent observation and operator claim agree on the external-effect conclusion, and the operator's own evidence already establishes that same conclusion with equivalent evidentiary strength and no material evidence gap. A normal `IN-BOUNDS` result can therefore be a PASS. For a refused action, PASS is possible only if the operator evidence and independent observation both establish the same no-effect conclusion to equivalent strength.
-- **FAIL — `DISTINCT ASSESSMENT SIGNAL`:** the independent observer establishes a material external-effect fact that the operator's evidence did not establish, or the operator claim materially conflicts with independently observed state. This also applies when the observer completes the preregistered independent query, its coverage is sufficient to establish that the claimed effect cannot be established from that source, and the operator claims success based on its own evidence. In that case technical reconciliation remains `INDETERMINATE`; the distinct signal is the evidence gap, not proof that the effect did not occur. An observed effect different from the operator's claim or a verified target/state fact missing from execution evidence are other examples. This is evidence for differentiation on this tested path, not proof of a general capability.
-- **INDETERMINATE:** the observer is unavailable, its query or coverage is inadequate to establish either the effect or a bounded inability to establish it, or the evidence does not resolve whether the operator already had an equivalent basis. This is not a provider failure and is neither PASS nor FAIL.
+Keep all three result families separate:
 
-Use **`NOT DECISIVE`** as the assessment-signal classification only when the observer adds information but the evidence does not establish whether the operator already had an equivalent basis. Do not count this as a distinct signal or as support for differentiation. State the evidence gap that prevents deciding.
-
-The `assessment_signal` field must be exactly one of `NO DISTINCT ASSESSMENT SIGNAL`, `DISTINCT ASSESSMENT SIGNAL`, `NOT DECISIVE`, or `INDETERMINATE`. `assessment_decision` is `PASS`, `FAIL`, or `INDETERMINATE` under the rules above. Therefore a completed observer query may yield technical reconciliation `INDETERMINATE` and assessment decision `FAIL` with signal `DISTINCT ASSESSMENT SIGNAL` when it establishes the stated evidence gap; mere observer unavailability yields `INDETERMINATE` for both. A refusal is a technical reconciliation outcome, not a substitute for the assessment decision.
+- Technical effect result: `IN-BOUNDS`, `DIVERGENT`, `INDETERMINATE`, `REFUSED / DENIED`.
+- Operator-claim result: `SUPPORTED`, `CONTRADICTED`, `INDETERMINATE`.
+- Assessment signal: `DISTINCT SIGNAL`, `NO DISTINCT SIGNAL`, `NOT DECISIVE`, `INDETERMINATE`.
 
 ## Evidence requirements
 
@@ -99,7 +101,7 @@ The operator must submit a literal `OPERATOR_CLAIM` field and freeze it before i
 
 ### Independent observation
 
-Only after the claim is frozen, the observer independently queries GitHub's system of record using its separately controlled read-only authority. The observer must establish, to the extent available:
+Only after the claim is frozen, the observer independently queries GitHub's system of record using its read-only authority and the fixed observation window above. When an effect ID is available, the observer queries that exact ID first and directly. The observer must establish, to the extent available:
 
 - target repository and issue;
 - whether the declared action/effect occurred;
@@ -108,16 +110,16 @@ Only after the claim is frozen, the observer independently queries GitHub's syst
 - relevant creation timestamp and current/relevant state;
 - the pre-action baseline and evidence distinguishing the result from existing state.
 
-Record query method, endpoint or interface, request time, response/status, pagination or coverage limits, and source records sufficient for the assessor to reproduce the observation. Do not include credentials. The observer must obtain state directly from the system of record, not operator logs, screenshots, or a reconstruction of execution telemetry. The observer sends the frozen result to the assessor only after its query.
+For every polling attempt, record only HTTP status, repository, issue number, comment ID, body, and timestamp/author where safely available. Record the fixed query method/endpoint and pagination/coverage rules once in the observation record, not additional per-attempt data. Do not include credentials. The observer must obtain state directly from the system of record, not operator logs, screenshots, or a reconstruction of execution telemetry. The observer sends the frozen result to the assessor only after its query.
 
 ## Order of operations
 
-1. Complete and preserve the preregistration, exact effect, constraints, observer arrangement, and rules.
+1. Commit and preserve the preregistration, exact effect, constraints, observer arrangement, and rules before execution.
 2. Operator performs exactly one action through the normal deployed agent/security path. No retries or other writes.
-3. Operator freezes and submits `OPERATOR_CLAIM` and all required operator evidence. The operator cannot see observer findings first.
-4. Observer independently reads the system of record and submits its result.
-5. Assessor compares preregistered expectation, operator claim, and independent observation as distinct evidence sources.
-6. Assessor classifies technical reconciliation, assessment decision, assessment signal, trust boundaries, evidence gaps, and limitations using only the frozen rules.
+3. Provider returns an effect identifier, if any. Operator freezes `OPERATOR_CLAIM` and all required operator evidence using only its own evidence, before revealing observer results.
+4. Observer starts its fixed observation window, queries the exact effect ID directly when available, and submits its result.
+5. Assessor reconciles the preregistered expectation, frozen operator claim, and independent observation as distinct evidence sources.
+6. Assessor determines the technical effect result, operator-claim result, and distinct-assessment-signal independently, then records trust boundaries, evidence gaps, and limitations using only the frozen rules.
 
 The observer must not give findings to the operator before step 3. The assessor must not change expectations or decision rules after step 1. If ordering or preservation cannot be verified, record a protocol deviation; do not silently treat the run as conformant.
 
@@ -129,13 +131,15 @@ The run is one action only: no retry, second write, provider mutation, destructi
 
 ## Falsification and interpretation
 
-The current differentiation hypothesis is falsified for this tested path if the operator's evidence already establishes the same external-effect result independently and with equivalent evidentiary strength; KALPANG cannot obtain a meaningfully different observation; the observer requires the same evidence source as the operator; the purported independent result is duplicated telemetry; the effect cannot be specified precisely enough to evaluate; or the assessment depends on privileged internal implementation details despite claiming to be black-box.
+The assessment hypothesis is falsified for this action if `DISTINCT-ASSESSMENT-SIGNAL = NO DISTINCT SIGNAL` and the operator's own evidence already established the same external-effect conclusion with sufficient evidentiary strength. Record that the hypothesis was not differentiated on this action; do not turn this result into a KALPANG failure narrative.
 
-The hypothesis is supported for this tested path only if the observer is separated enough for the specific claimed assessment, independently obtains system-of-record evidence, establishes a material fact that the operator evidence did not establish, and enables reproduction of the result from the preregistration and evidence without post-hoc rule changes. An `INDETERMINATE` observer result can be a distinct signal only when the operator claimed an effect and the independent evidence shows that effect cannot be established; it does not establish that no effect occurred. A single result does not establish universal capability.
+The hypothesis gains support for this action only if `DISTINCT-ASSESSMENT-SIGNAL = DISTINCT SIGNAL`: the observer independently establishes material information absent from the operator's evidence. Even then, this does not mean control failure, vulnerability, or provider fault, and one result does not establish universal capability. `NOT DECISIVE` and `INDETERMINATE` do not support or falsify the hypothesis; state the specific evidentiary limitation.
 
 ## Required evidence package schemas
 
-Create these four runtime artifacts only when the eventual assessment is conducted. They must contain no credentials. The following JSON objects define required fields and value types; replace placeholders with recorded values, omit no required field, and use explicit `null` or an explanatory value where a field is unavailable. These are schemas/examples only, not runtime artifacts.
+Create one runtime artifact named `github-independent-assessment-YYYY-MM-DD.json`; it must contain no credentials. It consolidates the following four evidence records in one JSON object. Replace placeholders with recorded values, omit no required field, and use explicit `null` or an explanatory value where a field is unavailable. These are field-level examples, not separate runtime artifacts.
+
+The combined artifact must include all of these fields: `assessment_id`, `preregistration_commit`, `declared_effect`, `operator_claim`, `operator_claim_result`, `execution_evidence`, `observer_identity`, `observation_window`, `independent_observation`, `technical_effect_result`, `assessment_signal`, `trust_boundaries`, `evidence_gaps`, and `limitations`. `trust_boundaries` must report `EXECUTION_IDENTITY`, `OBSERVER_IDENTITY`, `CREDENTIAL_SEPARATION`, `IDENTITY_SEPARATION`, `HOST_SEPARATION`, `PROCESS_SEPARATION`, `PROVIDER_SHARED_TRUST`, and `OTHER_SHARED_DEPENDENCIES` separately. Each observation attempt records only HTTP status, repository, issue number, comment ID, body, and timestamp/author where safely available.
 
 ### `preregistration.json`
 
@@ -191,9 +195,12 @@ Create these four runtime artifacts only when the eventual assessment is conduct
   },
   "decision_rules": {
     "technical_outcomes": ["IN-BOUNDS", "DIVERGENT", "INDETERMINATE", "REFUSED / DENIED"],
-    "assessment_question": "Did the deployed control path's own evidence independently establish the same consequential external-effect result that the assessor established through the separately controlled system-of-record observer?",
-    "assessment_decisions": ["PASS", "FAIL", "INDETERMINATE"],
-    "assessment_signals": ["NO DISTINCT ASSESSMENT SIGNAL", "DISTINCT ASSESSMENT SIGNAL", "NOT DECISIVE", "INDETERMINATE"]
+    "observation_window": "starts immediately after OPERATOR_CLAIM is frozen and effect ID recorded; poll exact effect ID every 5 seconds, maximum 12 attempts/60 seconds; do not extend",
+    "direct_effect_id_query_required": true,
+    "list_observation": "per_page=100; follow explicit pagination links; maximum 5 pages; list absence is not proof of effect absence",
+    "technical_effect_result_values": ["IN-BOUNDS", "DIVERGENT", "INDETERMINATE", "REFUSED / DENIED"],
+    "operator_claim_result_values": ["SUPPORTED", "CONTRADICTED", "INDETERMINATE"],
+    "assessment_signal_values": ["DISTINCT SIGNAL", "NO DISTINCT SIGNAL", "NOT DECISIVE", "INDETERMINATE"]
   },
   "execution_limit": "one action; no retry or other write"
 }
@@ -275,15 +282,18 @@ Create these four runtime artifacts only when the eventual assessment is conduct
   "operator_claim": "<frozen claim or operator-claim reference>",
   "independent_observation": "<observer finding or observer-result reference>",
   "reconciliation": "<IN-BOUNDS | DIVERGENT | INDETERMINATE | REFUSED / DENIED>",
-  "assessment_decision": "<PASS | FAIL | INDETERMINATE>",
-  "assessment_signal": "<NO DISTINCT ASSESSMENT SIGNAL | DISTINCT ASSESSMENT SIGNAL | NOT DECISIVE | INDETERMINATE>",
-  "binary_question_answer": "<yes | no | unresolved>",
+  "operator_claim_result": "<SUPPORTED | CONTRADICTED | INDETERMINATE>",
+  "technical_effect_result": "<IN-BOUNDS | DIVERGENT | INDETERMINATE | REFUSED / DENIED>",
+  "assessment_signal": "<DISTINCT SIGNAL | NO DISTINCT SIGNAL | NOT DECISIVE | INDETERMINATE>",
   "trust_boundaries": {
-    "credential_separation": "<finding>",
-    "identity_separation": "<finding>",
-    "host_process_separation": "<finding>",
-    "provider_shared_trust": "<finding>",
-    "remaining_dependencies": ["<dependency>"],
+    "EXECUTION_IDENTITY": "<identity>",
+    "OBSERVER_IDENTITY": "<identity or anonymous>",
+    "CREDENTIAL_SEPARATION": "<finding>",
+    "IDENTITY_SEPARATION": "<finding>",
+    "HOST_SEPARATION": "<finding>",
+    "PROCESS_SEPARATION": "<finding>",
+    "PROVIDER_SHARED_TRUST": "<finding>",
+    "OTHER_SHARED_DEPENDENCIES": ["<dependency>"],
     "separate_trust_domain_established": "<true or false with basis>"
   },
   "evidence_gaps": ["<gap or none>"],

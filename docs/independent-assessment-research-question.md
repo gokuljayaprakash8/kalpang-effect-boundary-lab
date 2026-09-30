@@ -6,11 +6,11 @@ An outside assessor may identify an evidence gap between a deployed agent-securi
 
 ## Falsification
 
-The assessment provides no distinct signal when the deployed stack already independently establishes the same external-effect result.
+For the tested action, `DISTINCT-ASSESSMENT-SIGNAL = NO DISTINCT SIGNAL` falsifies differentiation when the operator's own evidence already established the same external-effect conclusion with sufficient evidentiary strength. The operator-claim result (`SUPPORTED`, `CONTRADICTED`, or `INDETERMINATE`) is reported separately from the assessment signal (`DISTINCT SIGNAL`, `NO DISTINCT SIGNAL`, `NOT DECISIVE`, or `INDETERMINATE`). Neither result is collapsed into the technical effect result.
 
 ## Evidence boundary
 
-Real operator + separate observer + real system of record.
+One real operator action, a read-only observer of the real system of record, and separately reported operator-claim and assessment-signal results. Anonymous observation is credential-separated from the writer but is not a separately controlled trust domain.
 
 ## Current status
 
