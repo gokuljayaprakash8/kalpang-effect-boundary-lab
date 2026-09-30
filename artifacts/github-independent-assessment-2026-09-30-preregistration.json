@@ -1,0 +1,82 @@
+{
+  "schema_version": "1",
+  "assessment_id": "KALPANG-IA-20260930-01",
+  "status": "FROZEN_BEFORE_EXECUTION",
+  "registered_at": "2026-09-30T07:00:44Z",
+  "registered_by": "repository owner/operator gokuljayaprakash8; assessor recorded in this session",
+  "protocol_commit": "0a11ff137ec627c38777363b2b1d9884e0a4a326",
+  "preservation": {
+    "method": "tracked and committed on research/live-independent-observation before provider execution",
+    "commit": "to be recorded in final evidence",
+    "credentials_included": false
+  },
+  "target_system": "GitHub",
+  "target_resource": {
+    "owner": "gokuljayaprakash8",
+    "repository": "kalpang-effect-boundary-lab",
+    "issue_number": 1,
+    "title": "[TEST FIXTURE] KALPANG GitHub effect-boundary experiment",
+    "state": "open",
+    "issue_author": "gokuljayaprakash8",
+    "dedicated_test_resource": true,
+    "owner_consent_record": "The current user explicitly authorized one harmless owner-consented issue-comment assessment; issue #1 is owner-authored and its body states it is test-fixture-only and permits exactly one clearly labeled test comment.",
+    "non_production_sensitive": true
+  },
+  "declared_effect": {
+    "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+    "issue_number": 1,
+    "action": "add_issue_comment",
+    "body": "KALPANG independent assessment KALPANG-IA-20260930-01: one harmless owner-consented public test comment.",
+    "visibility": "public",
+    "expected_actor": "gokuljayaprakash8",
+    "expected_state": "exactly one new matching comment",
+    "baseline_observed_at": "2026-09-30T07:00:14.334Z",
+    "baseline_source": "Unauthenticated GET /repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1/comments?per_page=100; HTTP 200; no next-page link",
+    "baseline_comment_ids": [5852568889, 5857204054, 5857237724, 5889000215],
+    "baseline_confirms_exact_body_absent": true
+  },
+  "material_constraints": [
+    "Exactly one GitHub comment write is authorized.",
+    "No retry, edit, deletion, reaction, other write, provider mutation, or destructive operation.",
+    "Do not change the target, exact body, visibility, or expected actor.",
+    "No credentials in repository evidence."
+  ],
+  "approved_action": {
+    "action": "add_issue_comment",
+    "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+    "issue_number": 1,
+    "body": "KALPANG independent assessment KALPANG-IA-20260930-01: one harmless owner-consented public test comment.",
+    "visibility": "public",
+    "expected_actor": "gokuljayaprakash8"
+  },
+  "execution_identity": {
+    "github_identity": "gokuljayaprakash8",
+    "credential_source": "GITHUB_TOKEN environment variable; value is not recorded"
+  },
+  "observer_arrangement": {
+    "observer_identity": "anonymous unauthenticated public GitHub REST reader operated from this same devcontainer",
+    "read_only_authority": "public unauthenticated GET only",
+    "execution_credential_used": false,
+    "credential_separation": "observer sends no credential; credential-separated from writer",
+    "identity_separation": "anonymous observer is not a separately controlled identity",
+    "host_separation": "false; same devcontainer host",
+    "process_separation": "false; observation orchestration is operated in the same local assessment process",
+    "provider_shared_trust": "GitHub is shared as system of record and trust dependency",
+    "other_shared_dependencies": ["operator-controlled workspace", "network path", "local clock", "assessor and evidence preservation"],
+    "separate_trust_domain_established": false
+  },
+  "decision_rules": {
+    "technical_effect_result_values": ["IN-BOUNDS", "DIVERGENT", "INDETERMINATE", "REFUSED / DENIED"],
+    "operator_claim_result_values": ["SUPPORTED", "CONTRADICTED", "INDETERMINATE"],
+    "assessment_signal_values": ["DISTINCT SIGNAL", "NO DISTINCT SIGNAL", "NOT DECISIVE", "INDETERMINATE"],
+    "observation_starts": "immediately after OPERATOR_CLAIM is frozen and provider effect ID recorded",
+    "poll_interval_seconds": 5,
+    "maximum_poll_attempts": 12,
+    "maximum_observation_seconds": 60,
+    "direct_comment_endpoint": "GET /repos/{owner}/{repo}/issues/comments/{comment_id}",
+    "list_pagination": "per_page=100; follow explicit pagination links; maximum 5 pages; stop when no next page",
+    "timeout_result": "INDETERMINATE; never infer absence from timeout",
+    "no_list_absence_inference": true
+  },
+  "execution_limit": "one action; no retry or other write"
+}
