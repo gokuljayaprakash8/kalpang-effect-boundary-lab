@@ -1,0 +1,178 @@
+{
+  "assessment_id": "KALPANG-IA-20260930-01",
+  "preregistration_commit": "d3ada0293a07c940f3e982e7aabf795c0cb2a445",
+  "declared_effect": {
+    "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+    "issue_number": 1,
+    "action": "add_issue_comment",
+    "body": "KALPANG independent assessment KALPANG-IA-20260930-01: one harmless owner-consented public test comment.",
+    "visibility": "public",
+    "expected_actor": "gokuljayaprakash8",
+    "expected_state": "exactly one new matching comment",
+    "baseline_observed_at": "2026-09-30T07:00:14.334Z",
+    "baseline_source": "Unauthenticated GET /repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1/comments?per_page=100; HTTP 200; no next-page link",
+    "baseline_comment_ids": [
+      5852568889,
+      5857204054,
+      5857237724,
+      5889000215
+    ],
+    "baseline_confirms_exact_body_absent": true
+  },
+  "operator_claim": {
+    "assessment_id": "KALPANG-IA-20260930-01",
+    "frozen_at": "2026-09-30T07:04:40.179Z",
+    "operator_identity": "gokuljayaprakash8 via GITHUB_TOKEN environment variable (value omitted)",
+    "claim_basis": "authorization and execution-path evidence only; no post-action observer findings seen",
+    "evidence": {
+      "authorization_decision": "ALLOW",
+      "authorization_digest": "604ef090bf61d201683d151d587f5dbff6631f417aa8d08e7f01b7d5a2ad6907",
+      "policy_decision": "No separate live policy service; explicit ALLOW authorization was produced for this exact request.",
+      "agent_tool_invocation": "add_issue_comment through pinned GitHub MCP server v1.12.2",
+      "execution_lifecycle": {
+        "attempted": true,
+        "started_at": "2026-09-30T07:04:36.693Z",
+        "completed_at": "2026-09-30T07:04:40.179Z",
+        "request_sha256": "604ef090bf61d201683d151d587f5dbff6631f417aa8d08e7f01b7d5a2ad6907"
+      },
+      "final_boundary_decision": "Exact canonical request binding passed immediately before the MCP call; post-execution observation was not yet available.",
+      "execution_result": "MCP_RESPONSE_RECEIVED",
+      "provider_response": {
+        "is_error": false,
+        "content": [
+          "{\"id\":\"5905995393\",\"url\":\"https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1#issuecomment-5905995393\"}"
+        ],
+        "structured_content": null
+      },
+      "provider_call_error": null,
+      "provider_effect_identifier": "5905995393",
+      "external_effect_conclusion": "MCP returned success with comment_id 5905995393 for the exact authorized add_issue_comment request; I claim the declared public comment was created, based on the provider response. I have not yet seen independent post-action observation."
+    },
+    "OPERATOR_CLAIM": "MCP returned success with comment_id 5905995393 for the exact authorized add_issue_comment request; I claim the declared public comment was created, based on the provider response. I have not yet seen independent post-action observation.",
+    "credentials_included": false,
+    "preservation": {
+      "method": "claim fields were frozen and hashed before the first post-action observer request, then preserved in this evidence artifact",
+      "reference": "artifacts/github-independent-assessment-2026-09-30.json#operator_claim",
+      "sha256": "d3f34122d94fe57a87e30c049674d44cb3b41791881afdc70843814afdc4f5b9"
+    }
+  },
+  "operator_claim_result": "SUPPORTED",
+  "execution_evidence": {
+    "authorization_result": "ALLOW",
+    "authorization_sha256": "604ef090bf61d201683d151d587f5dbff6631f417aa8d08e7f01b7d5a2ad6907",
+    "request_sha256": "604ef090bf61d201683d151d587f5dbff6631f417aa8d08e7f01b7d5a2ad6907",
+    "final_request_sha256": "604ef090bf61d201683d151d587f5dbff6631f417aa8d08e7f01b7d5a2ad6907",
+    "execution_attempted": true,
+    "execution_result": {
+      "canonical_request_sha256": "604ef090bf61d201683d151d587f5dbff6631f417aa8d08e7f01b7d5a2ad6907",
+      "execution_performed": true,
+      "mcp_call_status": "RESPONSE RECEIVED",
+      "comparison_result": "IN-BOUNDS",
+      "final_status": "PASS",
+      "observed_comment_id": 5905995393
+    },
+    "execution_report_interpretation": "The helper report's final_status PASS is a legacy execution-verification field, not an assessment result; technical_effect_result, operator_claim_result, and assessment_signal below are the independent result families.",
+    "provider_response": {
+      "is_error": false,
+      "content": [
+        "{\"id\":\"5905995393\",\"url\":\"https://github.com/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1#issuecomment-5905995393\"}"
+      ],
+      "structured_content": null
+    },
+    "returned_effect_identifier": "5905995393",
+    "operator_claim_freeze_sha256": "d3f34122d94fe57a87e30c049674d44cb3b41791881afdc70843814afdc4f5b9",
+    "credentials_included": false
+  },
+  "observer_identity": {
+    "identity": "anonymous unauthenticated public GitHub REST reader operated by the same local operator",
+    "read_only": true,
+    "execution_credential_used": false,
+    "authorization_header_sent": false
+  },
+  "observation_window": {
+    "started_at": "2026-09-30T07:04:40.180Z",
+    "finished_at": "2026-09-30T07:04:40.681Z",
+    "poll_interval_seconds": 5,
+    "maximum_attempts": 12,
+    "attempts_made": 1,
+    "maximum_duration_seconds": 60,
+    "direct_endpoint": "GET /repos/{owner}/{repo}/issues/comments/{comment_id}",
+    "direct_request_endpoint": "/repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/comments/5905995393",
+    "list_pagination": "per_page=100; follow explicit pagination links; maximum 5 pages; stop when no next page",
+    "attempts": [
+      {
+        "http_status": 200,
+        "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+        "issue_number": 1,
+        "comment_id": "5905995393",
+        "body": "KALPANG independent assessment KALPANG-IA-20260930-01: one harmless owner-consented public test comment.",
+        "timestamp": "2026-09-30T07:04:39Z",
+        "author": "gokuljayaprakash8"
+      }
+    ],
+    "list_corroboration": {
+      "performed": true,
+      "http_status": 200,
+      "pages": 1,
+      "complete": true,
+      "next_page_after_limit": false,
+      "matching_body_count": 1,
+      "matching_comment_ids": [
+        "5905995393"
+      ]
+    }
+  },
+  "independent_observation": {
+    "path": "anonymous direct GET of returned comment ID 5905995393, then paginated issue-comment corroboration",
+    "direct_http_status": 200,
+    "effect_established": true,
+    "target_repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+    "target_issue": 1,
+    "observed_effect": {
+      "repository": "gokuljayaprakash8/kalpang-effect-boundary-lab",
+      "issue_number": 1,
+      "comment_id": "5905995393",
+      "body": "KALPANG independent assessment KALPANG-IA-20260930-01: one harmless owner-consented public test comment.",
+      "issue_url": "https://api.github.com/repos/gokuljayaprakash8/kalpang-effect-boundary-lab/issues/1",
+      "visibility": "public (returned by unauthenticated read from public issue)",
+      "actor": "gokuljayaprakash8",
+      "created_at": "2026-09-30T07:04:39Z"
+    },
+    "baseline_comparison": {
+      "baseline_observed_at": "2026-09-30T07:00:14.334Z",
+      "id_was_absent_from_baseline": true,
+      "expected_body_matches": true,
+      "expected_actor_matches": true,
+      "expected_issue_matches": true
+    }
+  },
+  "technical_effect_result": "IN-BOUNDS",
+  "assessment_signal": "DISTINCT SIGNAL",
+  "trust_boundaries": {
+    "EXECUTION_IDENTITY": "GitHub account gokuljayaprakash8 via GITHUB_TOKEN environment variable; value omitted",
+    "OBSERVER_IDENTITY": "anonymous public REST client; not a separately controlled identity",
+    "CREDENTIAL_SEPARATION": "credential-separated from writer; no credential or authorization header used by observer",
+    "IDENTITY_SEPARATION": "not separately controlled; anonymous observation run by same operator",
+    "HOST_SEPARATION": "false; same devcontainer host",
+    "PROCESS_SEPARATION": "false; same local Node assessment process",
+    "PROVIDER_SHARED_TRUST": "GitHub is the shared provider and system of record",
+    "OTHER_SHARED_DEPENDENCIES": [
+      "operator-controlled workspace",
+      "network path",
+      "local clock",
+      "assessor",
+      "evidence preservation"
+    ],
+    "separate_trust_domain_established": false
+  },
+  "evidence_gaps": [
+    "At OPERATOR_CLAIM freeze, operator evidence contained the authorized request and provider response but no direct system-of-record observation of the materialized comment body, author, or creation timestamp."
+  ],
+  "limitations": [
+    "Anonymous observation is credential-separated from the writer, but is not a separately controlled identity or separate trust domain.",
+    "Observer and execution share the same devcontainer host, local process, operator-controlled workspace, and GitHub provider trust domain.",
+    "The result applies only to this single owner-consented issue-comment action and does not establish universal security or provider correctness.",
+    "No general provider-fault or uniqueness claim is made; the record establishes only this one comment relative to its preregistered baseline."
+  ],
+  "credentials_included": false
+}
