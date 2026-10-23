@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
-export const SANDBOX_ROOT = await fs.mkdtemp(path.join(os.tmpdir(), 'kalpang-effect-boundary-'));
+export const SANDBOX_ROOT = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'kalpang-effect-boundary-')));
 export const ALLOWED_ROOT = path.join(SANDBOX_ROOT, 'allowed');
 export const OUTSIDE_ROOT = path.join(SANDBOX_ROOT, 'outside');
 
